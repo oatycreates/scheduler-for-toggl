@@ -1,0 +1,25 @@
+{
+  "name": "scheduler-for-toggl",
+  "description": "Web tool to streamline adding regular schedule entries to the Toggl time tracking service.",
+  "version": "0.1.0",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/patferguson/scheduler-for-toggl",
+  "author": {
+    "name": "Patrick Ferguson",
+    "url": "https://patrickferguson.cloud/"
+  },
+  "private": true,
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
