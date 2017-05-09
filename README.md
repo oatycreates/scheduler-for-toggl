@@ -1,4 +1,4 @@
-# scheduler-for-toggl
+# Scheduler for Toggl
 Web tool to streamline adding regular schedule entries to the Toggl time tracking service. Built in React and Redux.
 
 ## Running the project
