@@ -1,0 +1,11 @@
+language: node_js
+
+script:
+  # Pipe javascript test coverage lcov.info results into coveralls
+  - yarn test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+  # TODO: Consider building and deploying after this point in an after_script or deploy section?
+  # See: http://kamranicus.com/blog/2015/02/26/continuous-deployment-with-travis-ci/
+
+cache:
+  yarn: true
