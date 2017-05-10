@@ -1,4 +1,7 @@
 # Scheduler for Toggl
+[![Build Status](https://travis-ci.org/patferguson/scheduler-for-toggl.svg?branch=develop)](https://travis-ci.org/patferguson/scheduler-for-toggl)
+[![Coverage Status](https://coveralls.io/repos/github/patferguson/scheduler-for-toggl/badge.svg?branch=develop)](https://coveralls.io/github/patferguson/scheduler-for-toggl?branch=develop)
+
 Web tool to streamline adding regular schedule entries to the Toggl time tracking service. Built in React and Redux.
 
 ## Running the project
