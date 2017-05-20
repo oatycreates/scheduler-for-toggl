@@ -19,7 +19,7 @@ var checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var getProcessForPort = require('react-dev-utils/getProcessForPort');
 var openBrowser = require('react-dev-utils/openBrowser');
-var prompt = require('react-dev-utils/prompt');
+var inquirer = require('inquirer');
 var fs = require('fs');
 var config = require('../config/webpack.config.dev');
 var paths = require('../config/paths');
@@ -119,7 +119,7 @@ function setupCompiler(host, port, protocol) {
         console.log();
       });
       // Teach some TSLint tricks.
-      console.log('You may use special comments to disable some warnings.');      
+      console.log('You may use special comments to disable some warnings.');
       console.log('Use ' + chalk.yellow('tslint:disable-line') + ' to disable this line.');
       console.log('Use ' + chalk.yellow('tslint:disable-next-line') + ' to ignore the rules on next line.');
       console.log('Use ' + chalk.yellow('tslint:disable ') + ' to disable linting for rest of file.');
@@ -307,7 +307,10 @@ detect(DEFAULT_PORT).then(port => {
         ((existingProcess) ? ' Probably:\n  ' + existingProcess : '')) +
         '\n\nWould you like to run the app on another port instead?';
 
-    prompt(question, true).then(shouldChangePort => {
+    inquirer.prompt({
+        message: question,
+        default: true
+      }).then(shouldChangePort => {
       if (shouldChangePort) {
         run(port);
       }
