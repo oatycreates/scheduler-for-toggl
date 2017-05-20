@@ -3,3 +3,5 @@
  */
 
 import 'jest-enzyme'
+
+window.jQuery = window.$ = require('jquery');
