@@ -55,7 +55,7 @@
     "tslint-react": "^2.0.0",
     "typescript": "^2.3.2",
     "url-loader": "^0.5.8",
-    "webpack": "1.14.0",
+    "webpack": "^2.5.1",
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "^2.0.3"
