@@ -1,4 +1,6 @@
 import * as React from 'react'
+import * as _ from 'lodash'
+
 import './App.css'
 
 const logo = require('./logo.svg')
@@ -16,6 +18,9 @@ class App extends React.Component<{}, null> {
         </p>
         <p>
           <i className="fa fa-check" aria-hidden="true" />
+        </p>
+        <p>
+          Lodash _.zip: {_.zip(['a', 'b', 'c'], ['1', '2', '3']).toString()}
         </p>
       </div>
     )
