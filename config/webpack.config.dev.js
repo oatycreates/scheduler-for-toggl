@@ -88,7 +88,12 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         enforce: "pre",
         use: [
-          'tslint-loader'
+          {
+            loader: 'tslint-loader',
+            options: {
+              typeCheck: true
+            }
+          }
         ],
         include: paths.appSrc,
       },
