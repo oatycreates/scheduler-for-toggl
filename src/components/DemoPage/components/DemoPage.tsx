@@ -8,7 +8,7 @@ const logo = require('../assets/logo.svg')
 class DemoPage extends React.Component<{}, null> {
   render() {
     return (
-      <div className="DemoPage">
+      <div className="DemoPage container">
         <div className="DemoPage-header">
           <img src={logo} className="DemoPage-logo" alt="logo" />
           <h2>Welcome to React</h2>
@@ -22,6 +22,14 @@ class DemoPage extends React.Component<{}, null> {
         <p>
           Lodash _.zip: {_.zip(['a', 'b', 'c'], ['1', '2', '3']).toString()}
         </p>
+        <div className="row">
+          <div className="col-md-6">
+            div.col-md-6
+          </div>
+          <div className="col-md-6">
+            div.col-md-6
+          </div>
+        </div>
       </div>
     )
   }
