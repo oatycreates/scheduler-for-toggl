@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import registerServiceWorker from './registerServiceWorker'
 import DemoPage from './components/DemoPage'
 
 /**
@@ -21,3 +22,4 @@ ReactDOM.render(
   <DemoPage />,
   document.getElementById('root') as HTMLElement,
 )
+registerServiceWorker()
