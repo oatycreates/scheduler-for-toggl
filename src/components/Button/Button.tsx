@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import './Button.css'
 
-export enum Styles {
+export enum ButtonStyles {
   default,
   primary,
   success,
@@ -16,28 +16,28 @@ export interface ButtonProps {
   buttonText?: string,
   disabled?: boolean,
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>,
-  style?: Styles,
+  buttonStyle?: ButtonStyles,
 }
 
 /**
  * Returns the Bootstrap class name for the input button styling type.
- * @param style Styling to use for the button.
+ * @param buttonStyle Styling to use for the button.
  */
-export const getClassNameForStyle = (style: Styles | undefined) => {
-  switch (style) {
-    case Styles.default:
+export const getClassNameForStyle = (buttonStyle: ButtonStyles | undefined) => {
+  switch (buttonStyle) {
+    case ButtonStyles.default:
       return 'btn-default'
-    case Styles.primary:
+    case ButtonStyles.primary:
       return 'btn-primary'
-    case Styles.success:
+    case ButtonStyles.success:
       return 'btn-success'
-    case Styles.info:
+    case ButtonStyles.info:
       return 'btn-info'
-    case Styles.warning:
+    case ButtonStyles.warning:
       return 'btn-warning'
-    case Styles.danger:
+    case ButtonStyles.danger:
       return 'btn-danger'
-    case Styles.link:
+    case ButtonStyles.link:
       return 'btn-link'
     default:
       return 'btn-default'
@@ -48,7 +48,7 @@ export const Button: React.StatelessComponent<ButtonProps> = (props) => {
   const cssClasses = [
     'Button',
     'btn',
-    getClassNameForStyle(props.style),
+    getClassNameForStyle(props.buttonStyle),
   ].join(' ')
 
   return (
@@ -65,7 +65,7 @@ export const Button: React.StatelessComponent<ButtonProps> = (props) => {
 Button.defaultProps = {
   buttonText: 'Submit',
   disabled: false,
-  style: Styles.default,
+  buttonStyle: ButtonStyles.default,
 }
 
 export default Button

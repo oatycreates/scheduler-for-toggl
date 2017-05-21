@@ -5,7 +5,7 @@ import * as _ from 'lodash'
 import './DemoPage.css'
 
 // Component imports
-import Button from '../../components/Button'
+import {Button, ButtonStyles} from '../../components/Button'
 
 // Assets
 const logo = require('./assets/logo.svg')
@@ -42,6 +42,12 @@ class DemoPage extends React.Component<{}, null> {
         <Button
           buttonText="Demo Button"
           disabled={true}
+          onClick={this.onInputButtonClick}
+        />
+        <Button
+          buttonText="Demo Button"
+          disabled={true}
+          buttonStyle={ButtonStyles.primary}
           onClick={this.onInputButtonClick}
         />
       </div>
