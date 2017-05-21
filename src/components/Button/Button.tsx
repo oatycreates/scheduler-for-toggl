@@ -1,17 +1,17 @@
 import * as React from 'react'
 
-import './InputButton.css'
+import './Button.css'
 
-export interface InputButtonProps {
+export interface ButtonProps {
   buttonText?: string,
   disabled?: boolean
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>
 }
 
-export const InputButton: React.StatelessComponent<InputButtonProps> = (props) => {
+export const Button: React.StatelessComponent<ButtonProps> = (props) => {
   return (
     <button
-      className="InputButton"
+      className="Button"
       type="button"
       disabled={props.disabled}
       onClick={props.onClick}
@@ -20,14 +20,9 @@ export const InputButton: React.StatelessComponent<InputButtonProps> = (props) =
     </button>
   )
 }
-InputButton.propTypes = {
-  buttonText: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-}
-InputButton.defaultProps = {
+Button.defaultProps = {
   buttonText: 'Submit',
   disabled: false,
 }
 
-export default InputButton
+export default Button
