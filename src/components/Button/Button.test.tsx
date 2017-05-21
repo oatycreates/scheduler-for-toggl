@@ -10,7 +10,7 @@ describe('Button', () => {
   })
   it('correctly binds the onClick event', () => {
     let buttonClickCount = 0
-    const testOnClick = (evt: React.MouseEvent<{}>) => {
+    const testOnClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
       buttonClickCount++
     }
     const wrapper = shallow(<Button onClick={testOnClick} />)

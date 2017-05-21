@@ -6,13 +6,18 @@ import './DemoPage.css'
 
 // Component imports
 import {Button, ButtonStyles} from '../../components/Button'
+import TextInput from '../../components/TextInput'
 
 // Assets
 const logo = require('./assets/logo.svg')
 
 class DemoPage extends React.Component<{}, null> {
-  onInputButtonClick(evt: React.MouseEvent<{}>) {
-    alert(`${evt.clientX}, ${evt.clientY}`)
+  onButtonClick(evt: React.MouseEvent<{}>) {
+    alert(`onButtonClick: ${evt.clientX}, ${evt.clientY}`)
+  }
+  onTextInputChange(evt: React.ChangeEvent<{}>) {
+    // tslint:disable-next-line:no-console
+    console.log(`onTextInputChange: ${evt.timeStamp}`)
   }
 
   render() {
@@ -40,15 +45,18 @@ class DemoPage extends React.Component<{}, null> {
           </div>
         </div>
         <Button
-          buttonText="Demo Button"
+          buttonText="Disabled Button"
           disabled={true}
-          onClick={this.onInputButtonClick}
+          onClick={this.onButtonClick}
         />
         <Button
-          buttonText="Demo Button"
-          disabled={true}
+          buttonText="Primary Button"
           buttonStyle={ButtonStyles.primary}
-          onClick={this.onInputButtonClick}
+          onClick={this.onButtonClick}
+        />
+        <TextInput
+          placeholder="Placeholder value!"
+          onChange={this.onTextInputChange}
         />
       </div>
     )
