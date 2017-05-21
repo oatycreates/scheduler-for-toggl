@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import registerServiceWorker from './registerServiceWorker'
-import DemoPage from './components/DemoPage'
+import DemoPage from './pages/DemoPage'
 
 /**
  * Bootstrap jQuery plugin bindings:

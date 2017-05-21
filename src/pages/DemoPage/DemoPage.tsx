@@ -1,11 +1,20 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 
+// Component styles
 import './DemoPage.css'
 
-const logo = require('../assets/logo.svg')
+// Component imports
+import InputButton from '../../components/InputButton'
+
+// Assets
+const logo = require('./assets/logo.svg')
 
 class DemoPage extends React.Component<{}, null> {
+  onInputButtonClick(evt: React.MouseEvent<{}>) {
+    alert(`${evt.clientX}, ${evt.clientY}`)
+  }
+
   render() {
     return (
       <div className="DemoPage container">
@@ -30,6 +39,11 @@ class DemoPage extends React.Component<{}, null> {
             div.col-md-6
           </div>
         </div>
+        <InputButton
+          buttonText="Demo Button"
+          disabled={true}
+          onClick={this.onInputButtonClick}
+        />
       </div>
     )
   }
