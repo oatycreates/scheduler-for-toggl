@@ -5,7 +5,7 @@ import * as _ from 'lodash'
 import './DemoPage.css'
 
 // Component imports
-import InputButton from '../../components/InputButton'
+import Button from '../../components/Button'
 
 // Assets
 const logo = require('./assets/logo.svg')
@@ -39,7 +39,7 @@ class DemoPage extends React.Component<{}, null> {
             div.col-md-6
           </div>
         </div>
-        <InputButton
+        <Button
           buttonText="Demo Button"
           disabled={true}
           onClick={this.onInputButtonClick}

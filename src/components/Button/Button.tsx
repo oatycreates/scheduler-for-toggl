@@ -5,7 +5,7 @@ import './InputButton.css'
 export interface InputButtonProps {
   buttonText?: string,
   disabled?: boolean
-  onClick: React.EventHandler<React.MouseEvent<HTMLButtonElement>>
+  onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>
 }
 
 export const InputButton: React.StatelessComponent<InputButtonProps> = (props) => {
