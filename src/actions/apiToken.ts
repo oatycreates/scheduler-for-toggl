@@ -46,8 +46,9 @@ export function submitApiToken(apiToken: string = '') {
           error: `${err.code}: ${errors.join(', ')}`,
         }))
       } else {
-        // The API request completed successfully, the API token is valid
-        dispatch(validateApiTokenComplete({ isValid: true }))
+        // The API request completed successfully, test user ID to ensure the
+        // API token is valid
+        dispatch(validateApiTokenComplete({ isValid: userData.id > 0 }))
       }
     })
   }
