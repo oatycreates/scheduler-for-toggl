@@ -16,7 +16,6 @@ import {
 export interface ApiTokenState {
   apiToken: string,
   isValid: boolean,
-  needsValidating: boolean,
   isValidating: boolean,
   error: string,
 }
