@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as _ from 'lodash'
-import { render } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Store, Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -25,10 +25,10 @@ describe('ApiTokenField container', () => {
 
   beforeEach(() => {
     store = mockStore(initialState)
-    container = render(<Provider store={store}><ApiTokenField /></Provider> )
+    container = shallow(<Provider store={store}><ApiTokenField /></Provider> )
   })
 
   it('renders without crashing', () => {
-    expect(container.find('.ApiTokenField')).toHaveLength(1)
+    expect(container.find(ApiTokenField)).toHaveLength(1)
   })
 })
