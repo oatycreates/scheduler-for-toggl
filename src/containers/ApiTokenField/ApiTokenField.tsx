@@ -17,7 +17,8 @@ export interface ApiTokenFieldDispatches {
 }
 
 export interface ApiTokenFieldStateProps {
-  apiToken: string
+  apiToken: string,
+  isValidating: boolean,
 }
 
 // Combine props from mapStateToProps and mapDispatchToProps with any component props
@@ -51,7 +52,12 @@ class ApiTokenField extends React.Component<ApiTokenFieldProps, {}> {
     return (
       <div className="ApiTokenField">
         <TextInput onChange={this.props.onApiTokenChange} placeholder="Enter your Toggl API key here.." />
-        <Button onClick={this.onApiTokenSubmitClicked} buttonStyle={ButtonStyles.primary} />
+        <Button
+          onClick={this.onApiTokenSubmitClicked}
+          buttonStyle={ButtonStyles.primary}
+          disabled={this.props.isValidating}
+          buttonText={this.props.isValidating ? 'Submitting..' : 'Submit'}
+        />
       </div>
     )
   }
@@ -70,6 +76,7 @@ const mapStateToProps = (state: SchedulerForTogglAppState): ApiTokenFieldStatePr
   const { apiToken } = state
   return {
     apiToken: apiToken.apiToken,
+    isValidating: apiToken.isValidating,
   }
 }
 
