@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { SchedulerForTogglAppState } from '../../reducers'
 import { changeApiToken, submitApiToken } from '../../actions/apiToken'
-import Button from '../../components/Button'
+import { Button, ButtonStyles } from '../../components/Button'
 import TextInput from '../../components/TextInput'
 
 import './ApiTokenField.css'
@@ -51,7 +51,7 @@ class ApiTokenField extends React.Component<ApiTokenFieldProps, {}> {
     return (
       <div className="ApiTokenField">
         <TextInput onChange={this.props.onApiTokenChange} placeholder="Enter your Toggl API key here.." />
-        <Button onClick={this.onApiTokenSubmitClicked} />
+        <Button onClick={this.onApiTokenSubmitClicked} buttonStyle={ButtonStyles.primary} />
       </div>
     )
   }
