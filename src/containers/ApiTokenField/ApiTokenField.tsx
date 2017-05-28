@@ -55,7 +55,7 @@ class ApiTokenField extends React.Component<ApiTokenFieldProps, {}> {
         <Button
           onClick={this.onApiTokenSubmitClicked}
           buttonStyle={ButtonStyles.primary}
-          disabled={this.props.isValidating}
+          disabled={this.props.isValidating || this.props.apiToken.length === 0}
           buttonText={this.props.isValidating ? 'Submitting..' : 'Submit'}
         />
       </div>
