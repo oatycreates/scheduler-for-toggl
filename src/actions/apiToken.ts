@@ -39,11 +39,14 @@ export function submitApiToken(apiToken: string = '') {
     const togglClient = getTogglClient()
     togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.UserDataResponse) => {
       if (err) {
-        const errors = err.errors ? err.errors : []
+        let errorMessage = err.code.toString()
+        if (err.errors && err.errors.length > 0) {
+          errorMessage += `: ${err.errors.join(', ')}`
+        }
 
         // An API error was raised
         dispatch(validateApiTokenError({
-          error: `${err.code}: ${errors.join(', ')}`,
+          error: errorMessage,
         }))
       } else {
         // The API request completed successfully, test user ID to ensure the

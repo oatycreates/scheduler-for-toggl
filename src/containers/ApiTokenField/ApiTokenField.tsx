@@ -19,6 +19,7 @@ export interface ApiTokenFieldDispatches {
 export interface ApiTokenFieldStateProps {
   apiToken: string,
   isValidating: boolean,
+  error: string,
 }
 
 // Combine props from mapStateToProps and mapDispatchToProps with any component props
@@ -31,10 +32,6 @@ export interface ApiTokenFieldProps extends ApiTokenFieldStateProps, ApiTokenFie
  */
 
 class ApiTokenField extends React.Component<ApiTokenFieldProps, {}> {
-  static defaultProps: Partial<ApiTokenFieldProps> = {
-    apiToken: '',
-  }
-
   constructor() {
     super()
 
@@ -49,15 +46,25 @@ class ApiTokenField extends React.Component<ApiTokenFieldProps, {}> {
   }
 
   render() {
+    const errorText = (this.props.error && this.props.error.length > 0) ?
+      (
+        <p className="text-danger">
+          Error occured when validating API key: {this.props.error}
+        </p>
+      ) : null
+    const hasApiToken =
+      typeof this.props.apiToken !== 'undefined' && this.props.apiToken.length === 0
+
     return (
       <div className="ApiTokenField">
         <TextInput onChange={this.props.onApiTokenChange} placeholder="Enter your Toggl API key here.." />
         <Button
           onClick={this.onApiTokenSubmitClicked}
           buttonStyle={ButtonStyles.primary}
-          disabled={this.props.isValidating || this.props.apiToken.length === 0}
+          disabled={this.props.isValidating || hasApiToken}
           buttonText={this.props.isValidating ? 'Submitting..' : 'Submit'}
         />
+        {errorText}
       </div>
     )
   }
@@ -77,6 +84,7 @@ const mapStateToProps = (state: SchedulerForTogglAppState): ApiTokenFieldStatePr
   return {
     apiToken: apiToken.apiToken,
     isValidating: apiToken.isValidating,
+    error: apiToken.error,
   }
 }
 
