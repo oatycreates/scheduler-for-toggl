@@ -7,6 +7,7 @@ import './DemoPage.css'
 // Component imports
 import {Button, ButtonStyles} from '../../components/Button'
 import TextInput from '../../components/TextInput'
+import ApiTokenField from '../../containers/ApiTokenField'
 
 // Assets
 const logo = require('./assets/logo.svg')
@@ -58,6 +59,7 @@ class DemoPage extends React.Component<{}, null> {
           placeholder="Placeholder value!"
           onChange={this.onTextInputChange}
         />
+        <ApiTokenField />
       </div>
     )
   }
