@@ -57,13 +57,17 @@ class ApiTokenField extends React.Component<ApiTokenFieldProps, {}> {
 
     return (
       <div className="ApiTokenField">
-        <TextInput onChange={this.props.onApiTokenChange} placeholder="Enter your Toggl API key here.." />
-        <Button
-          onClick={this.onApiTokenSubmitClicked}
-          buttonStyle={ButtonStyles.primary}
-          disabled={this.props.isValidating || hasApiToken}
-          buttonText={this.props.isValidating ? 'Submitting..' : 'Submit'}
-        />
+        <div className="input-group">
+          <TextInput onChange={this.props.onApiTokenChange} placeholder="Enter your Toggl API key here.." />
+          <span className="input-group-btn">
+            <Button
+              onClick={this.onApiTokenSubmitClicked}
+              buttonStyle={ButtonStyles.primary}
+              disabled={this.props.isValidating || hasApiToken}
+              buttonText={this.props.isValidating ? 'Submitting..' : 'Submit'}
+            />
+          </span>
+        </div>
         {errorText}
       </div>
     )
