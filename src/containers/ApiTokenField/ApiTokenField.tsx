@@ -25,8 +25,8 @@ export const ApiTokenField: React.StatelessComponent<ApiTokenFieldProps> = (prop
         Error occured when validating API key: {props.error}
       </p>
     ) : null
-  const hasApiToken =
-    typeof props.apiToken !== 'undefined' && props.apiToken.length === 0
+  const blankApiToken =
+    typeof props.apiToken === 'undefined' || props.apiToken.length === 0
 
   return (
     <div className="ApiTokenField">
@@ -36,7 +36,7 @@ export const ApiTokenField: React.StatelessComponent<ApiTokenFieldProps> = (prop
           <Button
             onClick={props.onApiTokenSubmitClicked}
             buttonStyle={ButtonStyles.primary}
-            disabled={props.isValidating || hasApiToken}
+            disabled={props.isValidating || blankApiToken}
             buttonText={props.isValidating ? 'Submitting..' : 'Submit'}
           />
         </span>
