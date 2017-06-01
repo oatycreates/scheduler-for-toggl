@@ -15,7 +15,7 @@ describe('ApiTokenField', () => {
   })
 
   describe('when the user enters a value into the ApiTokenField', () => {
-    const wrapper = render(<ApiTokenField apiToken={faker.random.alphaNumeric()} />)
+    const wrapper = render(<ApiTokenField apiToken={faker.random.alphaNumeric(16)} />)
 
     it('enables the submit button', () => {
       expect(wrapper.find('.Button').prop('disabled')).toEqual(false)
