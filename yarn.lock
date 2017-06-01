@@ -20,6 +20,10 @@
     "@types/cheerio" "*"
     "@types/react" "*"
 
+"@types/faker@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.0.tgz#751cd99436a71d7856f33f65f9c5e58e5bc2711e"
+
 "@types/jest@^19.2.3":
   version "19.2.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.3.tgz#61748040e8589a891dfc2ec1d16a2dd74482980e"

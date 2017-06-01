@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/enzyme": "^2.8.0",
+    "@types/faker": "^4.1.0",
     "@types/jest": "^19.2.3",
     "@types/lodash": "^4.14.64",
     "@types/node": "^7.0.21",
@@ -84,6 +85,7 @@
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
       "!src/**/*.d.ts",
+      "!**/__{mocks,tests}__/*.{ts,tsx}",
       "!**/node_modules/**"
     ],
     "setupFiles": [
