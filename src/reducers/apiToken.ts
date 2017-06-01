@@ -3,6 +3,7 @@ import { Action, isType } from '../actions/actionCreator'
 /**
  * Action creators
  */
+
 import {
   changeApiToken,
   validateApiToken,
@@ -21,12 +22,22 @@ export interface ApiTokenState {
 }
 
 /**
+ * Initial state of this reducer.
+ */
+export const initialApiTokenState = Object.freeze({
+  apiToken: '',
+  error: '',
+  isValid: false,
+  isValidating: false,
+})
+
+/**
  * Returns the partial state that has been altered by the input action.
  * @param apiTokenState Existing partial state chunk for this reducer.
  * @param action Action to be handled by this reducer.
  */
 export function apiToken(
-    apiTokenState: Array<ApiTokenState> = [], action: Action<{}>) {
+    apiTokenState: ApiTokenState = initialApiTokenState, action: Action<{}>) {
   if (isType(action, changeApiToken)) {
     return Object.assign({}, apiTokenState, {
       apiToken: action.payload.apiToken,

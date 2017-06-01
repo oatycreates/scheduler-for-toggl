@@ -5,6 +5,7 @@ import { Store, Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { SchedulerForTogglAppState } from '../../reducers/'
+import { initialApiTokenState } from '../../reducers/apiToken'
 import ApiTokenField from './container'
 
 // Initialise a mocked Redux store with relevant middleware
@@ -15,12 +16,7 @@ describe('ApiTokenField container', () => {
   let store: Store<SchedulerForTogglAppState>
   let container
   const initialState: Partial<SchedulerForTogglAppState> = {
-    apiToken: {
-      apiToken: '',
-      error: '',
-      isValid: false,
-      isValidating: false,
-    },
+    apiToken: initialApiTokenState,
   }
 
   beforeEach(() => {
