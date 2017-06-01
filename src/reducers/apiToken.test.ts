@@ -24,7 +24,7 @@ describe('apiToken reducer', () => {
 
   describe('changeApiToken action', () => {
     it('accepts a new valid apiToken value', () => {
-      const newApiToken = 'AABBCCDD'
+      const newApiToken = faker.random.alphaNumeric()
 
       state.apiToken =
         apiToken(state.apiToken, changeApiToken({apiToken: newApiToken}))
