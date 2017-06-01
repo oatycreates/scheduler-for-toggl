@@ -1,11 +1,26 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 
+// Component styles
 import './DemoPage.css'
 
-const logo = require('../assets/logo.svg')
+// Component imports
+import {Button, ButtonStyles} from '../../components/Button'
+import TextInput from '../../components/TextInput'
+import ApiTokenField from '../../containers/ApiTokenField'
+
+// Assets
+const logo = require('./assets/logo.svg')
 
 class DemoPage extends React.Component<{}, null> {
+  onButtonClick(evt: React.MouseEvent<{}>) {
+    alert(`onButtonClick: ${evt.clientX}, ${evt.clientY}`)
+  }
+  onTextInputChange(evt: React.ChangeEvent<{}>) {
+    // tslint:disable-next-line:no-console
+    console.log(`onTextInputChange: ${evt.timeStamp}`)
+  }
+
   render() {
     return (
       <div className="DemoPage container">
@@ -30,6 +45,21 @@ class DemoPage extends React.Component<{}, null> {
             div.col-md-6
           </div>
         </div>
+        <Button
+          buttonText="Disabled Button"
+          disabled={true}
+          onClick={this.onButtonClick}
+        />
+        <Button
+          buttonText="Primary Button"
+          buttonStyle={ButtonStyles.primary}
+          onClick={this.onButtonClick}
+        />
+        <TextInput
+          placeholder="Placeholder value!"
+          onChange={this.onTextInputChange}
+        />
+        <ApiTokenField />
       </div>
     )
   }
