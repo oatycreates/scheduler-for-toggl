@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import registerServiceWorker from './registerServiceWorker'
 import schedulerForTogglApp, { initialSchedulerForTogglAppState } from './reducers'
-import DemoPage from './pages/DemoPage'
+import ScheduleEntryPage from './pages/ScheduleEntryPage'
 
 /**
  * Redux middleware
@@ -49,7 +49,7 @@ const store = createStore(
 ReactDOM.render(
   // Binds the Redux store to make it available to all child components
   <Provider store={store}>
-    <DemoPage />
+    <ScheduleEntryPage />
   </Provider>,
   document.getElementById('root') as HTMLElement,
 )
