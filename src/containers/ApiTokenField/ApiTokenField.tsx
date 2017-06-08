@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { Button, ButtonStyles } from '../../components/Button'
 import TextInput from '../../components/TextInput'
-import { ApiTokenFieldContainerProps } from './container'
 
 import './ApiTokenField.css'
 
-// Combine props from container with any custom ones this presentational component needs
-export interface ApiTokenFieldProps extends ApiTokenFieldContainerProps {
-  /**
-   * The base onApiTokenSubmit dispatch can't be used here as the container
-   * component binds a custom 'this' context.
-   */
-  onApiTokenSubmitClicked?: (evt: React.MouseEvent<HTMLButtonElement>) => void
+export interface ApiTokenFieldProps {
+  apiToken?: string,
+  isValidating?: boolean,
+  error?: string,
+  onApiTokenChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void,
+  onApiTokenSubmit?: (evt: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
 /**
@@ -34,7 +32,7 @@ export const ApiTokenField: React.StatelessComponent<ApiTokenFieldProps> = (prop
         <TextInput onChange={props.onApiTokenChange} placeholder="Enter your Toggl API key here.." />
         <span className="input-group-btn">
           <Button
-            onClick={props.onApiTokenSubmitClicked}
+            onClick={props.onApiTokenSubmit}
             buttonStyle={ButtonStyles.primary}
             disabled={props.isValidating || blankApiToken}
             buttonText={props.isValidating ? 'Submitting..' : 'Submit'}
