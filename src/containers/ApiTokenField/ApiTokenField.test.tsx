@@ -27,19 +27,19 @@ describe('ApiTokenField', () => {
 
   describe('when the user clicks the submit button', () => {
     let wrapper: ReactWrapper<ApiTokenFieldProps, {}>
-    let onApiTokenSubmitClicked: jest.Mock<{}>
+    let onApiTokenSubmit: jest.Mock<{}>
     beforeEach(() => {
-      onApiTokenSubmitClicked = jest.fn()
+      onApiTokenSubmit = jest.fn()
       wrapper = mount(
         <ApiTokenField
           apiToken={faker.random.alphaNumeric(16)}
-          onApiTokenSubmitClicked={onApiTokenSubmitClicked}
+          onApiTokenSubmit={onApiTokenSubmit}
         />)
     })
 
-    it('triggers the onApiTokenSubmitClicked callback', () => {
+    it('triggers the onApiTokenSubmit callback', () => {
       wrapper.find('.Button').simulate('click')
-      expect(onApiTokenSubmitClicked.mock.calls.length).toEqual(1)
+      expect(onApiTokenSubmit.mock.calls.length).toEqual(1)
     })
   })
 })
