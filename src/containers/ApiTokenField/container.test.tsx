@@ -1,30 +1,39 @@
 import * as React from 'react'
-import * as _ from 'lodash'
-import { shallow } from 'enzyme'
+import { shallow, ShallowWrapper } from 'enzyme'
+import { createStore, applyMiddleware } from 'redux'
 import { Store, Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { SchedulerForTogglAppState } from '../../reducers/'
-import { initialApiTokenState } from '../../reducers/apiToken'
-import ApiTokenField from './container'
+import schedulerForTogglApp, { SchedulerForTogglAppState, initialSchedulerForTogglAppState } from '../../reducers/'
+import ApiTokenField, { ApiTokenFieldContainerProps } from './container'
 
-// Initialise a mocked Redux store with relevant middleware
-const middlewares = [thunk]
-const mockStore = configureStore(middlewares)
+// Mock Toggl imports to prevent any actual API access
+jest.mock('../../apiClients/TogglClient')
+
+/**
+ * Builds a Redux store instance,
+ */
+function buildReduxStore(initialState: SchedulerForTogglAppState = initialSchedulerForTogglAppState) {
+  const middleware = [
+    thunk,
+  ]
+
+  // Initialise the Redux store
+  const store = createStore(schedulerForTogglApp, initialState, applyMiddleware(...middleware))
+
+  return store
+}
 
 describe('ApiTokenField container', () => {
-  let store: Store<SchedulerForTogglAppState>
-  let container
-  const initialState: Partial<SchedulerForTogglAppState> = {
-    apiToken: initialApiTokenState,
-  }
+  describe('using shallow rendering', () => {
+    let container: ShallowWrapper<ApiTokenFieldContainerProps, {}>
 
-  beforeEach(() => {
-    store = mockStore(initialState)
-    container = shallow(<Provider store={store}><ApiTokenField /></Provider> )
-  })
+    beforeEach(() => {
+      const store = buildReduxStore()
+      container = shallow(<Provider store={store}><ApiTokenField /></Provider>)
+    })
 
-  it('renders without crashing', () => {
-    expect(container.find(ApiTokenField)).toHaveLength(1)
+    it('renders without crashing', () => {
+      expect(container.find(ApiTokenField)).toHaveLength(1)
+    })
   })
 })
