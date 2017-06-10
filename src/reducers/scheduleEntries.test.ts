@@ -1,5 +1,5 @@
 import * as faker from 'faker'
-import { scheduleEntries, initialScheduleEntriesState } from './scheduleEntries'
+import { scheduleEntries } from './scheduleEntries'
 import { SchedulerForTogglAppState } from './'
 
 /**
@@ -15,7 +15,7 @@ describe('scheduleEntries reducer', () => {
 
   beforeEach(() => {
     state = {
-      scheduleEntries: initialScheduleEntriesState,
+      scheduleEntries: [],
     }
   })
 
