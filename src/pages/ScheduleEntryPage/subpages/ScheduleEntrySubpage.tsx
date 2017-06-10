@@ -8,7 +8,7 @@ export interface ScheduleEntrySubpageProps {
 
 export const ScheduleEntrySubpage: React.StatelessComponent<ScheduleEntrySubpageProps> = (props) => {
   return (
-    <div>
+    <div className="ScheduleEntrySubpage">
       <p>Valid API token!</p>
       <ScheduleEntryField />
       <ScheduleEntryList />

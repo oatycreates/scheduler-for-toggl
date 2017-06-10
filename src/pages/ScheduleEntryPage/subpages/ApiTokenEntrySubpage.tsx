@@ -7,7 +7,7 @@ export interface ApiTokenEntrySubpageProps {
 
 export const ApiTokenEntrySubpage: React.StatelessComponent<ApiTokenEntrySubpageProps> = (props) => {
   return (
-    <div>
+    <div className="ApiTokenSubpage">
       <p>Enter your Toggl API key</p>
       <ApiTokenField />
     </div>
