@@ -10,4 +10,9 @@ const ADD_SCHEDULE_ENTRY = 'ADD_SCHEDULE_ENTRY'
  * Action creators
  */
 
-export const addScheduleEntry = actionCreator<{scheduleName: string}>(ADD_SCHEDULE_ENTRY)
+export const addScheduleEntry = actionCreator<{
+  scheduleName: string,
+  // ISO string formatted Moment strings
+  startTime: string,
+  endTime: string,
+}>(ADD_SCHEDULE_ENTRY)

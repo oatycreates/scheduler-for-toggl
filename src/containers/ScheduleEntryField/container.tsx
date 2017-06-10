@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as moment from 'moment'
 import { connect } from 'react-redux'
 import { addScheduleEntry } from '../../actions/scheduleEntries'
 import ScheduleEntryField from './ScheduleEntryField'
@@ -8,7 +9,7 @@ import ScheduleEntryField from './ScheduleEntryField'
  */
 
 export interface ScheduleEntryFieldContainerStateDispatches {
-  onScheduleEntrySubmit?: (apiToken: string) => void,
+  onScheduleEntrySubmit?: (scheduleName: string, startTime: string, endTime: string) => void,
 }
 
 export interface ScheduleEntryFieldContainerStateProps {
@@ -20,7 +21,9 @@ export type ScheduleEntryFieldContainerProps =
 
 // Temporary schedule entry field state is stored in the container to simplify storage
 export interface ScheduleEntryFieldContainerState {
-  scheduleName: string
+  scheduleName: string,
+  startTime: moment.Moment,
+  endTime: moment.Moment,
 }
 
 /**
@@ -35,17 +38,15 @@ class ScheduleEntryFieldContainer extends
     // Initialise local component state
     this.state = {
       scheduleName: '',
+      startTime: moment(),
+      endTime: moment().add(5, 'minutes'),
     }
 
     // Bind context for handlers
     this.onScheduleNameChange = this.onScheduleNameChange.bind(this)
+    this.onStartTimeChange = this.onStartTimeChange.bind(this)
+    this.onEndTimeChange = this.onEndTimeChange.bind(this)
     this.onScheduleEntrySubmitClicked = this.onScheduleEntrySubmitClicked.bind(this)
-  }
-
-  onScheduleEntrySubmitClicked() {
-    if (this.props.onScheduleEntrySubmit) {
-      this.props.onScheduleEntrySubmit(this.state.scheduleName)
-    }
   }
 
   onScheduleNameChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -54,11 +55,38 @@ class ScheduleEntryFieldContainer extends
     })
   }
 
+  onStartTimeChange(time: moment.Moment) {
+    this.setState({
+      startTime: time,
+    })
+  }
+
+  onEndTimeChange(time: moment.Moment) {
+    this.setState({
+      endTime: time,
+    })
+  }
+
+  onScheduleEntrySubmitClicked() {
+    if (this.props.onScheduleEntrySubmit) {
+      this.props.onScheduleEntrySubmit(
+        this.state.scheduleName,
+        // ISO string formatted Moment times
+        this.state.startTime.format(),
+        this.state.endTime.format(),
+      )
+    }
+  }
+
   render() {
     return (
       <ScheduleEntryField
         scheduleName={this.state.scheduleName}
+        startTime={this.state.startTime}
+        endTime={this.state.endTime}
         onScheduleNameChange={this.onScheduleNameChange}
+        onStartTimeChange={this.onStartTimeChange}
+        onEndTimeChange={this.onEndTimeChange}
         onScheduleEntrySubmit={this.onScheduleEntrySubmitClicked}
       />
     )
@@ -75,8 +103,12 @@ class ScheduleEntryFieldContainer extends
  */
 const mapDispatchToProps = (dispatch: Function): ScheduleEntryFieldContainerStateDispatches => {
   return {
-    onScheduleEntrySubmit: (scheduleName: string) => {
-      dispatch(addScheduleEntry({scheduleName}))
+    onScheduleEntrySubmit: (scheduleName: string, startTime: string, endTime: string) => {
+      dispatch(addScheduleEntry({
+        scheduleName,
+        startTime,
+        endTime,
+      }))
     },
   }
 }

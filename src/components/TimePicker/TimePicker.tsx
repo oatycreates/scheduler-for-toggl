@@ -60,10 +60,14 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
 
   onChange(time: TimepickerTime) {
     // Parse the TimepickerTime instance into a Moment time to improve utility
-    const newTime = TimePicker.timepickerTimeToMoment(time)
+    const momentTime = TimePicker.timepickerTimeToMoment(time)
     this.setState({
-      time: newTime,
+      time: momentTime,
     })
+
+    if (this.props.onChange) {
+      this.props.onChange(momentTime)
+    }
   }
 
   /**
@@ -107,13 +111,13 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
 
   render() {
     return (
-      <div className="TimePicker">
+      <span className="TimePicker">
         <span onClick={this.toggleTimePicker}>
           {this.state.time.format('h:mm A')}
           &nbsp;<i className="fa fa-caret-down" aria-hidden="true" />
         </span>
         {this.state.showPicker ? this.renderTimePicker() : null}
-      </div>
+      </span>
     )
   }
 }

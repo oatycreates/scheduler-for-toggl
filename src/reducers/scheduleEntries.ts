@@ -14,6 +14,8 @@ import {
 export interface ScheduleEntry {
   id: number,
   scheduleName: string,
+  startTime: string,
+  endTime: string,
 }
 
 export type ScheduleEntriesState = Array<ScheduleEntry>
@@ -42,6 +44,9 @@ export function scheduleEntries(
         -1,
       ),
       scheduleName: action.payload.scheduleName,
+      // ISO string formatted Moment times
+      startTime: action.payload.startTime,
+      endTime: action.payload.endTime,
     }]
   } else {
     return scheduleEntries

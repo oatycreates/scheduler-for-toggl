@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as faker from 'faker'
+import * as moment from 'moment'
 import * as _ from 'lodash'
 import { Button, ButtonStyles } from '../../components/Button'
 import TextInput from '../../components/TextInput'
@@ -9,7 +10,11 @@ import './ScheduleEntryField.css'
 
 export interface ScheduleEntryFieldProps {
   scheduleName?: string,
+  startTime?: moment.Moment,
+  endTime?: moment.Moment,
   onScheduleNameChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void,
+  onStartTimeChange?: (time: moment.Moment) => void,
+  onEndTimeChange?: (time: moment.Moment) => void,
   onScheduleEntrySubmit?: (evt: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
@@ -28,7 +33,8 @@ export const ScheduleEntryField: React.StatelessComponent<ScheduleEntryFieldProp
           onChange={props.onScheduleNameChange}
           placeholder={`${_.capitalize(faker.company.bsBuzz())} ${faker.company.bsNoun()}...`}
         />
-        <TimePicker />
+        <TimePicker time={props.startTime} onChange={props.onStartTimeChange} />
+        <TimePicker time={props.endTime} onChange={props.onEndTimeChange}/>
         <span className="input-group-btn">
           <Button
             onClick={props.onScheduleEntrySubmit}
