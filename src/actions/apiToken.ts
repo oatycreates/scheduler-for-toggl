@@ -39,7 +39,15 @@ export function submitApiToken(apiToken: string = '') {
     const togglClient = getTogglClient()
     togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.UserDataResponse) => {
       if (err) {
-        let errorMessage = err.code.toString()
+        let errorMessage = ''
+        if (err.code) {
+          // Toggl API responded with an error
+          errorMessage = err.code.toString()
+        } else if (err.message) {
+          // HTTP request to Toggl API failed
+          errorMessage = err.message
+        }
+
         if (err.errors && err.errors.length > 0) {
           errorMessage += `: ${err.errors.join(', ')}`
         }
