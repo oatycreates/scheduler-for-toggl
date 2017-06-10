@@ -39,7 +39,7 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
    * @param time TimepickerTime time to convert.
    */
   static timepickerTimeToMoment(time: TimepickerTime): moment.Moment {
-    return moment(time.formatted24, 'HH:mm')
+    return moment(time.formatted, 'h:mm a')
   }
 
   constructor(props: TimePickerProps) {
