@@ -60,7 +60,7 @@ declare module 'toggl-api' {
       /**
        * HTTP status code
        */
-      code: number
+      code?: number
       /**
        * Keeps error or other descriptive data if errors array is not specified
        */
@@ -69,6 +69,11 @@ declare module 'toggl-api' {
        * List of errors
        */
       errors?: string[]
+      /**
+       * RequestJS error, this will be set ONLY if the request itself failed to
+       * reach the Toggl server e.g. during maintenance.
+       */
+      message?: string
     }
   }
 

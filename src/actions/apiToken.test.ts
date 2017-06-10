@@ -1,10 +1,11 @@
 import * as faker from 'faker'
-import configureStore from 'redux-mock-store'
+import configureStore, { IStore } from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { SchedulerForTogglAppState } from '../reducers/'
 
 // Initialise a mocked Redux store with relevant middleware
 const middlewares = [thunk]
-const mockStore = configureStore(middlewares)
+const mockStore = configureStore<Partial<SchedulerForTogglAppState>>(middlewares)
 
 // Mock Toggl imports to prevent actual API access
 jest.mock('../apiClients/TogglClient')
@@ -18,10 +19,23 @@ import {
 } from './apiToken'
 
 describe('apiToken actions', () => {
-  let store
+  let store: IStore<Partial<SchedulerForTogglAppState>>
   beforeEach(() => {
+    // NOTE: 2017/06/10 - It seems that if an initial state object is imported
+    // from another file, then the jest mock for TogglClient will be cleared.
+    // The cause of this is unclear, may have something to do with the
+    // transpilation steps to go from TypeScript ES6 to ES5? Use a plain state
+    // initialiser for now.
+
     // Mock the store with the intial state
-    store = mockStore({})
+    store = mockStore({
+      apiToken: {
+        apiToken: '',
+        error: '',
+        isValid: false,
+        isValidating: false,
+      },
+    })
   })
 
   // See: http://redux.js.org/docs/recipes/WritingTests.html

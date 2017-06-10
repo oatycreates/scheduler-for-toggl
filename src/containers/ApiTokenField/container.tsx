@@ -8,27 +8,28 @@ import ApiTokenField from './ApiTokenField'
  * Prop type definitions
  */
 
-export interface ApiTokenFieldDispatches {
+export interface ApiTokenFieldContainerStateDispatches {
   onApiTokenChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void,
   onApiTokenSubmit?: (apiToken: string) => void,
 }
 
-export interface ApiTokenFieldStateProps {
+export interface ApiTokenFieldContainerStateProps {
   apiToken?: string,
   isValidating?: boolean,
   error?: string,
 }
 
 // Combine props from mapStateToProps and mapDispatchToProps for container props
-export type ApiTokenFieldContainerProps = ApiTokenFieldStateProps & ApiTokenFieldDispatches
+export type ApiTokenFieldContainerProps =
+  ApiTokenFieldContainerStateProps & ApiTokenFieldContainerStateDispatches
 
 /**
  * Component definition
  */
 
 class ApiTokenFieldContainer extends React.Component<ApiTokenFieldContainerProps, {}> {
-  constructor() {
-    super()
+  constructor(props: ApiTokenFieldContainerProps) {
+    super(props)
 
     // Bind context for handlers
     this.onApiTokenSubmitClicked = this.onApiTokenSubmitClicked.bind(this)
@@ -61,7 +62,7 @@ class ApiTokenFieldContainer extends React.Component<ApiTokenFieldContainerProps
  * Makes the desired properties from state available on this.props for the class.
  * @param state Full store state tree.
  */
-const mapStateToProps = (state: SchedulerForTogglAppState): ApiTokenFieldStateProps => {
+const mapStateToProps = (state: SchedulerForTogglAppState): ApiTokenFieldContainerStateProps => {
   // Extract the desired properties out of the state tree
   const { apiToken } = state
   return {
@@ -75,7 +76,7 @@ const mapStateToProps = (state: SchedulerForTogglAppState): ApiTokenFieldStatePr
  * Exposes the Redux dispatchers for certain actions to this.props.
  * @param dispatch Handle to the Redux Dispatch method.
  */
-const mapDispatchToProps = (dispatch: Function): ApiTokenFieldDispatches => {
+const mapDispatchToProps = (dispatch: Function): ApiTokenFieldContainerStateDispatches => {
   return {
     onApiTokenChange: (evt: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(changeApiToken({apiToken: evt.target.value}))

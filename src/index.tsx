@@ -4,14 +4,14 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import registerServiceWorker from './registerServiceWorker'
-import schedulerForTogglApp from './reducers'
-import DemoPage from './pages/DemoPage'
+import schedulerForTogglApp, { initialSchedulerForTogglAppState } from './reducers'
+import ScheduleEntryPage from './pages/ScheduleEntryPage'
 
 /**
  * Redux middleware
  */
 
-import thunkMiddleware from 'redux-thunk'
+import thunk from 'redux-thunk'
 
 /**
  * Bootstrap jQuery plugin bindings:
@@ -34,18 +34,22 @@ const composeEnhancers = composeWithDevTools({
 })
 
 const middleware = [
-  thunkMiddleware,
+  thunk,
 ]
 
 // Initialise the Redux store
-const store = createStore(schedulerForTogglApp, composeEnhancers(
-  applyMiddleware(...middleware),
-))
+const store = createStore(
+  schedulerForTogglApp,
+  initialSchedulerForTogglAppState,
+  composeEnhancers(
+    applyMiddleware(...middleware),
+  ),
+)
 
 ReactDOM.render(
   // Binds the Redux store to make it available to all child components
   <Provider store={store}>
-    <DemoPage />
+    <ScheduleEntryPage />
   </Provider>,
   document.getElementById('root') as HTMLElement,
 )
