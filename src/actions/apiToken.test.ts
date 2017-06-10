@@ -1,10 +1,11 @@
 import * as faker from 'faker'
-import configureStore from 'redux-mock-store'
+import configureStore, { IStore } from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { SchedulerForTogglAppState, initialSchedulerForTogglAppState } from '../reducers/'
 
 // Initialise a mocked Redux store with relevant middleware
 const middlewares = [thunk]
-const mockStore = configureStore(middlewares)
+const mockStore = configureStore<SchedulerForTogglAppState>(middlewares)
 
 // Mock Toggl imports to prevent actual API access
 jest.mock('../apiClients/TogglClient')
@@ -18,10 +19,10 @@ import {
 } from './apiToken'
 
 describe('apiToken actions', () => {
-  let store
+  let store: IStore<SchedulerForTogglAppState>
   beforeEach(() => {
     // Mock the store with the intial state
-    store = mockStore({})
+    store = mockStore(initialSchedulerForTogglAppState)
   })
 
   // See: http://redux.js.org/docs/recipes/WritingTests.html

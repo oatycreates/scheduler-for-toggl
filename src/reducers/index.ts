@@ -21,10 +21,10 @@ export interface SchedulerForTogglAppState {
  * Initial application state tree
  */
 
-export const initialSchedulerForTogglAppState = {
+export const initialSchedulerForTogglAppState: SchedulerForTogglAppState = {
   apiToken: initialApiTokenState,
   scheduleEntries: initialScheduleEntriesState,
-} as SchedulerForTogglAppState
+}
 
 // This aggregates all included reducer modules into a single reducer for the store
 const schedulerForTogglApp = combineReducers<SchedulerForTogglAppState>({
