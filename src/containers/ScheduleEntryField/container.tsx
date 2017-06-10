@@ -32,8 +32,8 @@ export interface ScheduleEntryFieldContainerState {
 
 class ScheduleEntryFieldContainer extends
     React.Component<ScheduleEntryFieldContainerProps, ScheduleEntryFieldContainerState> {
-  constructor() {
-    super()
+  constructor(props: ScheduleEntryFieldContainerProps) {
+    super(props)
 
     // Initialise local component state
     this.state = {
