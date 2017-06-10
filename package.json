@@ -87,6 +87,7 @@
       "src/**/*.{ts,tsx}",
       "!src/**/*.d.ts",
       "!**/__{mocks,tests}__/*.{ts,tsx}",
+      "!src/registerServiceWorker.ts",
       "!**/node_modules/**"
     ],
     "setupFiles": [
