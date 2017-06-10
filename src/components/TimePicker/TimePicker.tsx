@@ -27,15 +27,11 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
   }
 
   /**
-   * Converts a Moment time to a TimepickerTime instance.
+   * Converts a Moment time to a TimepickerTime string.
    * @param time Moment time to convert.
    */
-  static momentToTimepickerTime(time: moment.Moment | undefined): TimepickerTime | undefined {
-    const timepickerTime: TimepickerTime | undefined = time ? {
-      hour24: Number.parseInt(time.format('HH')),
-      minute: Number.parseInt(time.format('mm')),
-    } : undefined
-    return timepickerTime
+  static momentToTimepickerString(time: moment.Moment | undefined): string | undefined {
+    return time ? time.format('h:mm a') : undefined
   }
 
   /**
@@ -58,6 +54,7 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
 
     // Bind context for handlers
     this.onChange = this.onChange.bind(this)
+    this.onDoneClick = this.onDoneClick.bind(this)
     this.toggleTimePicker = this.toggleTimePicker.bind(this)
   }
 
@@ -66,9 +63,21 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
     const newTime = TimePicker.timepickerTimeToMoment(time)
     this.setState({
       time: newTime,
-      // Hide the picker now that a value has been chosen
+    })
+  }
+
+  /**
+   * Called either when the 'Done' button is clicked, or when the minute is
+   * picked and closeOnMinuteSelect is set to true.
+   */
+  onDoneClick(event: React.MouseEvent<HTMLSpanElement>) {
+    this.setState({
       showPicker: false,
     })
+
+    if (this.props.onDoneClick) {
+      this.props.onDoneClick(event)
+    }
   }
 
   /**
@@ -81,13 +90,13 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
   }
 
   renderTimePicker() {
-    const timepickerTime = TimePicker.momentToTimepickerTime(this.props.time)
+    const timepickerTime = TimePicker.momentToTimepickerString(this.state.time)
 
     return (
       <Timepicker
         time={timepickerTime}
         onChange={this.onChange}
-        onDoneClick={this.props.onDoneClick}
+        onDoneClick={this.onDoneClick}
         switchToMinuteOnHourSelect={this.props.switchToMinuteOnHourSelect}
         closeOnMinuteSelect={this.props.closeOnMinuteSelect}
         config={this.props.config}
@@ -99,7 +108,10 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
   render() {
     return (
       <div className="TimePicker">
-        <span onClick={this.toggleTimePicker}>{this.state.time.format('h:mm A')}</span>
+        <span onClick={this.toggleTimePicker}>
+          {this.state.time.format('h:mm A')}
+          &nbsp;<i className="fa fa-caret-down" aria-hidden="true" />
+        </span>
         {this.state.showPicker ? this.renderTimePicker() : null}
       </div>
     )

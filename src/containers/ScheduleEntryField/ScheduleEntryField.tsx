@@ -3,6 +3,7 @@ import * as faker from 'faker'
 import * as _ from 'lodash'
 import { Button, ButtonStyles } from '../../components/Button'
 import TextInput from '../../components/TextInput'
+import TimePicker from '../../components/TimePicker'
 
 import './ScheduleEntryField.css'
 
@@ -27,6 +28,7 @@ export const ScheduleEntryField: React.StatelessComponent<ScheduleEntryFieldProp
           onChange={props.onScheduleNameChange}
           placeholder={`${_.capitalize(faker.company.bsBuzz())} ${faker.company.bsNoun()}...`}
         />
+        <TimePicker />
         <span className="input-group-btn">
           <Button
             onClick={props.onScheduleEntrySubmit}
