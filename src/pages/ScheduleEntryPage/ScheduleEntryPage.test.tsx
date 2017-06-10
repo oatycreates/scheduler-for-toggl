@@ -40,5 +40,9 @@ describe('ScheduleEntryPage', () => {
     it('doesn\'t display the API token entry field', () => {
       expect(container.find('.ApiTokenField')).toHaveLength(0)
     })
+
+    it('displays the schedule entry field', () => {
+      expect(container.find('.ScheduleEntryField')).toHaveLength(1)
+    })
   })
 })

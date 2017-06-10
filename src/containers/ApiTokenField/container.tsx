@@ -20,7 +20,8 @@ export interface ApiTokenFieldStateContainerProps {
 }
 
 // Combine props from mapStateToProps and mapDispatchToProps for container props
-export type ApiTokenFieldContainerProps = ApiTokenFieldStateContainerProps & ApiTokenFieldContainerDispatches
+export type ApiTokenFieldContainerProps =
+  ApiTokenFieldStateContainerProps & ApiTokenFieldContainerDispatches
 
 /**
  * Component definition

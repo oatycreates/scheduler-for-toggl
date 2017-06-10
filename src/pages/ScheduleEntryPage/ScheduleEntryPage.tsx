@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { SchedulerForTogglAppState } from '../../reducers'
-import ApiTokenField from '../../containers/ApiTokenField'
+import ApiTokenEntrySubpage from './subpages/ApiTokenEntrySubpage'
+import ScheduleEntrySubpage from './subpages/ScheduleEntrySubpage'
+
 import './ScheduleEntryPage.css'
 
 /**
@@ -23,7 +25,7 @@ class ScheduleEntryPage extends React.Component<ScheduleEntryPageStateProps, {}>
 
     return (
       <div className="ScheduleEntryPage container">
-        {hasValidApiToken ? <p>Valid API token</p> : <ApiTokenField />}
+        {hasValidApiToken ? <ScheduleEntrySubpage /> : <ApiTokenEntrySubpage />}
       </div>
     )
   }
