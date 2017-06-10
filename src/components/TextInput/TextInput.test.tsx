@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as _ from 'lodash'
 import { shallow } from 'enzyme'
 import TextInput from './TextInput'
 
