@@ -59,3 +59,11 @@ export function submitScheduleEntry(scheduleEntry: ScheduleEntry) {
     })
   }
 }
+
+export function submitScheduleEntries(scheduleEntries: ReadonlyArray<ScheduleEntry>) {
+  return function (dispatch: Dispatch<{}>) {
+    scheduleEntries.forEach((scheduleEntry) => {
+      dispatch(submitScheduleEntry(scheduleEntry))
+    })
+  }
+}

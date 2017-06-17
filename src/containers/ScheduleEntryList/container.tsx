@@ -3,9 +3,9 @@ import * as moment from 'moment'
 import { connect } from 'react-redux'
 import { SchedulerForTogglAppState } from '../../reducers'
 import { ScheduleEntry } from '../../reducers/scheduleEntries'
-import { submitScheduleEntry } from '../../actions/scheduleEntries'
+import { submitScheduleEntry, submitScheduleEntries } from '../../actions/scheduleEntries'
+import { Button, ButtonStyles } from '../../components/Button'
 import ScheduleEntryPanel from '../../components/ScheduleEntryPanel'
-import Button from '../../components/Button'
 
 /**
  * Prop type definitions
@@ -13,6 +13,7 @@ import Button from '../../components/Button'
 
 export interface ScheduleEntryListContainerStateDispatches {
   onScheduleEntrySubmit?: (scheduleEntry: ScheduleEntry) => void,
+  onSubmitAllScheduleEntries?: (scheduleEntries: ReadonlyArray<ScheduleEntry>) => void,
 }
 
 export interface ScheduleEntryListContainerStateProps {
@@ -31,6 +32,15 @@ class ScheduleEntryListContainer extends
     React.Component<ScheduleEntryListContainerProps, {}> {
   constructor(props: ScheduleEntryListContainerProps) {
     super(props)
+
+    // Bind context for handlers
+    this.onSubmitAllScheduleEntries = this.onSubmitAllScheduleEntries.bind(this)
+  }
+
+  onSubmitAllScheduleEntries(event: React.MouseEvent<HTMLButtonElement>) {
+    if (this.props.onSubmitAllScheduleEntries) {
+      this.props.onSubmitAllScheduleEntries(this.props.scheduleEntries)
+    }
   }
 
   renderScheduleEntry(scheduleEntry: ScheduleEntry) {
@@ -55,6 +65,7 @@ class ScheduleEntryListContainer extends
           endTime={moment(scheduleEntry.endTime)}
         />
         <Button
+          buttonStyle={ButtonStyles.primary}
           onClick={scheduleEntrySubmit}
           buttonText="Submit"
         />
@@ -64,10 +75,21 @@ class ScheduleEntryListContainer extends
   }
 
   renderScheduleEntries() {
-    return (
+    const scheduleEntries = (
       this.props.scheduleEntries.map((scheduleEntry: ScheduleEntry) => {
         return this.renderScheduleEntry(scheduleEntry)
       })
+    )
+
+    return (
+      <div>
+        {scheduleEntries}
+        <Button
+          buttonStyle={ButtonStyles.primary}
+          onClick={this.onSubmitAllScheduleEntries}
+          buttonText="Submit All"
+        />
+      </div>
     )
   }
 
@@ -106,6 +128,9 @@ const mapDispatchToProps = (dispatch: Function): ScheduleEntryListContainerState
   return {
     onScheduleEntrySubmit: (scheduleEntry: ScheduleEntry) => {
       dispatch(submitScheduleEntry(scheduleEntry))
+    },
+    onSubmitAllScheduleEntries: (scheduleEntries: ReadonlyArray<ScheduleEntry>) => {
+      dispatch(submitScheduleEntries(scheduleEntries))
     },
     // TODO: Add thunk for submitting all schedule entries to Toggl
   }
