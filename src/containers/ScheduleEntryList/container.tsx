@@ -3,14 +3,16 @@ import * as moment from 'moment'
 import { connect } from 'react-redux'
 import { SchedulerForTogglAppState } from '../../reducers'
 import { ScheduleEntry } from '../../reducers/scheduleEntries'
+import { submitScheduleEntry } from '../../actions/scheduleEntries'
 import ScheduleEntryPanel from '../../components/ScheduleEntryPanel'
+import Button from '../../components/Button'
 
 /**
  * Prop type definitions
  */
 
 export interface ScheduleEntryListContainerStateDispatches {
-
+  onScheduleEntrySubmit?: (scheduleEntry: ScheduleEntry) => void,
 }
 
 export interface ScheduleEntryListContainerStateProps {
@@ -31,17 +33,40 @@ class ScheduleEntryListContainer extends
     super(props)
   }
 
+  renderScheduleEntry(scheduleEntry: ScheduleEntry) {
+    // Bind the schedule entry submit function for this schedule entry panel
+    const scheduleEntrySubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (this.props.onScheduleEntrySubmit) {
+        this.props.onScheduleEntrySubmit(scheduleEntry)
+      }
+    }
+    const errorText = (scheduleEntry.submitError && scheduleEntry.submitError.length > 0) ?
+      (
+        <p className="text-danger">
+          Error occured when submitting schedule entry: {scheduleEntry.submitError}
+        </p>
+      ) : null
+
+    return (
+      <div key={scheduleEntry.id}>
+        <ScheduleEntryPanel
+          scheduleName={scheduleEntry.scheduleName}
+          startTime={moment(scheduleEntry.startTime)}
+          endTime={moment(scheduleEntry.endTime)}
+        />
+        <Button
+          onClick={scheduleEntrySubmit}
+          buttonText="Submit"
+        />
+        {errorText}
+      </div>
+    )
+  }
+
   renderScheduleEntries() {
     return (
       this.props.scheduleEntries.map((scheduleEntry: ScheduleEntry) => {
-        return (
-          <ScheduleEntryPanel
-            key={scheduleEntry.id}
-            scheduleName={scheduleEntry.scheduleName}
-            startTime={moment(scheduleEntry.startTime)}
-            endTime={moment(scheduleEntry.endTime)}
-          />
-        )
+        return this.renderScheduleEntry(scheduleEntry)
       })
     )
   }
@@ -79,7 +104,10 @@ const mapStateToProps = (state: SchedulerForTogglAppState): ScheduleEntryListCon
  */
 const mapDispatchToProps = (dispatch: Function): ScheduleEntryListContainerStateDispatches => {
   return {
-    // TODO: Add thunks for submitting individual or all schedule entries to Toggl
+    onScheduleEntrySubmit: (scheduleEntry: ScheduleEntry) => {
+      dispatch(submitScheduleEntry(scheduleEntry))
+    },
+    // TODO: Add thunk for submitting all schedule entries to Toggl
   }
 }
 
