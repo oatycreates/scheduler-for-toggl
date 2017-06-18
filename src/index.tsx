@@ -56,7 +56,7 @@ const composeEnhancers = composeWithDevTools({
   // redux-devtools-extension options here
 })
 
-const middleware = [
+const middlewares = [
   thunk,
 ]
 
@@ -65,7 +65,7 @@ const store = createStore(
   reducer,
   initialSchedulerForTogglAppState,
   composeEnhancers(
-    applyMiddleware(...middleware),
+    applyMiddleware(...middlewares),
     persistState(storage, _.kebabCase(APP_NAME)),
   ),
 )
