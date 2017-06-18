@@ -20,6 +20,8 @@
     "react-redux": "^5.0.5",
     "react-timekeeper": "^1.0.4",
     "redux": "^3.6.0",
+    "redux-localstorage": "^1.0.0-rc4",
+    "redux-localstorage-filter": "^0.1.1",
     "redux-thunk": "^2.2.0",
     "toggl-api": "^1.0.1"
   },
@@ -33,6 +35,8 @@
     "@types/react": "^15.0.24",
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.40",
+    "@types/redux-localstorage": "^1.0.2",
+    "@types/redux-localstorage-filter": "^0.1.1",
     "@types/redux-mock-store": "^0.0.7",
     "app-root-path": "^2.0.1",
     "autoprefixer": "7.1.0",
