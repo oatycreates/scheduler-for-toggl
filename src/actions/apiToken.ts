@@ -1,7 +1,7 @@
 import { actionCreator } from './actionCreator'
 import { Dispatch } from 'redux'
 import * as TogglClient from 'toggl-api'
-import { initTogglClient, getTogglClient } from '../apiClients/TogglClient'
+import { initTogglClient, getTogglClient, formatTogglApiErrorMessage } from '../apiClients/TogglClient'
 
 /**
  * Action types
@@ -39,22 +39,9 @@ export function submitApiToken(apiToken: string = '') {
     const togglClient = getTogglClient()
     togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.UserDataResponse) => {
       if (err) {
-        let errorMessage = ''
-        if (err.code) {
-          // Toggl API responded with an error
-          errorMessage = err.code.toString()
-        } else if (err.message) {
-          // HTTP request to Toggl API failed
-          errorMessage = err.message
-        }
-
-        if (err.errors && err.errors.length > 0) {
-          errorMessage += `: ${err.errors.join(', ')}`
-        }
-
         // An API error was raised
         dispatch(validateApiTokenError({
-          error: errorMessage,
+          error: formatTogglApiErrorMessage(err),
         }))
       } else {
         // The API request completed successfully, test user ID to ensure the

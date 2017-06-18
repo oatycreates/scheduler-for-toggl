@@ -9,7 +9,7 @@ import ScheduleEntryField from './ScheduleEntryField'
  */
 
 export interface ScheduleEntryFieldContainerStateDispatches {
-  onScheduleEntrySubmit?: (scheduleName: string, startTime: string, endTime: string) => void,
+  onScheduleEntryCreate?: (scheduleName: string, startTime: string, endTime: string) => void,
 }
 
 export interface ScheduleEntryFieldContainerStateProps {
@@ -46,7 +46,7 @@ class ScheduleEntryFieldContainer extends
     this.onScheduleNameChange = this.onScheduleNameChange.bind(this)
     this.onStartTimeChange = this.onStartTimeChange.bind(this)
     this.onEndTimeChange = this.onEndTimeChange.bind(this)
-    this.onScheduleEntrySubmitClicked = this.onScheduleEntrySubmitClicked.bind(this)
+    this.onScheduleEntryCreateClicked = this.onScheduleEntryCreateClicked.bind(this)
   }
 
   onScheduleNameChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -67,9 +67,9 @@ class ScheduleEntryFieldContainer extends
     })
   }
 
-  onScheduleEntrySubmitClicked() {
-    if (this.props.onScheduleEntrySubmit) {
-      this.props.onScheduleEntrySubmit(
+  onScheduleEntryCreateClicked() {
+    if (this.props.onScheduleEntryCreate) {
+      this.props.onScheduleEntryCreate(
         this.state.scheduleName,
         // ISO string formatted Moment times
         this.state.startTime.format(),
@@ -87,7 +87,7 @@ class ScheduleEntryFieldContainer extends
         onScheduleNameChange={this.onScheduleNameChange}
         onStartTimeChange={this.onStartTimeChange}
         onEndTimeChange={this.onEndTimeChange}
-        onScheduleEntrySubmit={this.onScheduleEntrySubmitClicked}
+        onScheduleEntryCreate={this.onScheduleEntryCreateClicked}
       />
     )
   }
@@ -103,11 +103,13 @@ class ScheduleEntryFieldContainer extends
  */
 const mapDispatchToProps = (dispatch: Function): ScheduleEntryFieldContainerStateDispatches => {
   return {
-    onScheduleEntrySubmit: (scheduleName: string, startTime: string, endTime: string) => {
+    onScheduleEntryCreate: (scheduleName: string, startTime: string, endTime: string) => {
       dispatch(addScheduleEntry({
-        scheduleName,
-        startTime,
-        endTime,
+        scheduleEntry: {
+          scheduleName,
+          startTime,
+          endTime,
+        },
       }))
     },
   }

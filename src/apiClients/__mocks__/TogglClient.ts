@@ -1,4 +1,5 @@
 import * as faker from 'faker'
+import { APIError, TimeEntry } from 'toggl-api'
 
 class TogglClient {
   options = {
@@ -20,6 +21,18 @@ class TogglClient {
       callback({code: 400, errors: ['Invalid API key']}, null)
     }
   }
+
+  createTimeEntry(
+    data: TimeEntry,
+    callback: (err: {} | null, timeEntry: TimeEntry | null) => {}) {
+    // Always pretend that the submit succeeded
+    callback(null, {
+      description: data.description,
+      start: data.start,
+      stop: data.stop,
+      duration: data.duration,
+    } as TimeEntry)
+  }
 }
 
 let togglClient: TogglClient | null = null
@@ -29,4 +42,21 @@ export const initTogglClient = (options: { apiToken: string }) => {
 
 export const getTogglClient = () => {
   return togglClient
+}
+
+export const formatTogglApiErrorMessage = (err: APIError) => {
+  let errorMessage = ''
+  if (err.code) {
+    // Toggl API responded with an error
+    errorMessage = err.code.toString()
+  } else if (err.message) {
+    // HTTP request to Toggl API failed
+    errorMessage = err.message
+  }
+
+  if (err.errors && err.errors.length > 0) {
+    errorMessage += `: ${err.errors.join(', ')}`
+  }
+
+  return errorMessage
 }

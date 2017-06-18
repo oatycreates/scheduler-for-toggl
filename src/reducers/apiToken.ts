@@ -37,7 +37,8 @@ export const initialApiTokenState = Object.freeze({
  * @param action Action to be handled by this reducer.
  */
 export function apiToken(
-    apiTokenState: ApiTokenState = initialApiTokenState, action: Action<{}>) {
+    apiTokenState: ApiTokenState = initialApiTokenState,
+    action: Action<{}>): ApiTokenState {
   if (isType(action, changeApiToken)) {
     return Object.assign({}, apiTokenState, {
       apiToken: action.payload.apiToken,
