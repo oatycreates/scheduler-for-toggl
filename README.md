@@ -4,6 +4,8 @@
 
 Web tool to streamline adding regular schedule entries to the Toggl time tracking service. Built in React and Redux.
 
+Use this tool online at: [https://scheduler-for-toggl.ferguson.cloud/](https://scheduler-for-toggl.ferguson.cloud/)
+
 ## Running the project
 
 In the project directory, run:
