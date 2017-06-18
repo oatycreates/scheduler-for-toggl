@@ -15,7 +15,7 @@ export interface ScheduleEntryFieldProps {
   onScheduleNameChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void,
   onStartTimeChange?: (time: moment.Moment) => void,
   onEndTimeChange?: (time: moment.Moment) => void,
-  onScheduleEntrySubmit?: (evt: React.MouseEvent<HTMLButtonElement>) => void,
+  onScheduleEntryCreate?: (evt: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
 /**
@@ -37,10 +37,10 @@ export const ScheduleEntryField: React.StatelessComponent<ScheduleEntryFieldProp
         <TimePicker time={props.endTime} onChange={props.onEndTimeChange}/>
         <span className="input-group-btn">
           <Button
-            onClick={props.onScheduleEntrySubmit}
+            onClick={props.onScheduleEntryCreate}
             buttonStyle={ButtonStyles.primary}
             disabled={hasBlankScheduleName}
-            buttonText="Submit"
+            buttonText="Add"
           />
         </span>
       </div>

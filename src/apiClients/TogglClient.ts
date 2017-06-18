@@ -21,3 +21,24 @@ export const getTogglClient = () => {
 
   return togglClientInstance
 }
+
+/**
+ * Parses the Toggl API error object and returns a structured error string.
+ * @param err Error object from the Toggl API.
+ */
+export const formatTogglApiErrorMessage = (err: TogglClient.APIError): string => {
+  let errorMessage = ''
+  if (err.code) {
+    // Toggl API responded with an error
+    errorMessage = err.code.toString()
+  } else if (err.message) {
+    // HTTP request to Toggl API failed
+    errorMessage = err.message
+  }
+
+  if (err.errors && err.errors.length > 0) {
+    errorMessage += `: ${err.errors.join(', ')}`
+  }
+
+  return errorMessage
+}

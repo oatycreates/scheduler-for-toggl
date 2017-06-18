@@ -1,46 +1,125 @@
-import * as faker from 'faker'
-import * as moment from 'moment'
-import configureStore, { IStore } from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import { SchedulerForTogglAppState, initialSchedulerForTogglAppState } from '../reducers/'
+// Mock Toggl imports to prevent actual API access
+jest.mock('../apiClients/TogglClient')
 
-// Initialise a mocked Redux store with relevant middleware
-const middlewares = [thunk]
-const mockStore = configureStore<SchedulerForTogglAppState>(middlewares)
+import * as faker from 'faker'
+import * as _ from 'lodash'
+import thunk from 'redux-thunk'
+import configureStore, { IStore } from 'redux-mock-store'
+import { generateRandomScheduleEntry } from '../lib/testHelpers/scheduleEntry'
+import { SchedulerForTogglAppState } from '../reducers/'
+import { ScheduleEntry } from '../reducers/scheduleEntries'
+import { initTogglClient } from '../apiClients/TogglClient'
 
 import {
   addScheduleEntry,
+  removeScheduleEntry,
+  submitScheduleEntryStarted,
+  submitScheduleEntryComplete,
+  submitScheduleEntryError,
+  submitScheduleEntry,
+  submitScheduleEntries,
 } from './scheduleEntries'
 
+// Initialise a mocked Redux store with relevant middleware
+const middlewares = [thunk]
+const mockStore = configureStore<Partial<SchedulerForTogglAppState>>(middlewares)
+
 describe('scheduleEntries actions', () => {
-  let store: IStore<SchedulerForTogglAppState>
+  let store: IStore<Partial<SchedulerForTogglAppState>>
   beforeEach(() => {
     // Mock the store with the intial state
-    store = mockStore(initialSchedulerForTogglAppState)
+    store = mockStore({
+      scheduleEntries: {
+        entries: Array<ScheduleEntry>(),
+      },
+    })
+
+    // Initialise the mock Toggl client
+    initTogglClient({})
   })
 
-  describe('changeApiToken action', () => {
-    it('correctly performs the changeApiToken action', () => {
-      const newScheduleName = faker.lorem.sentence()
-      const startTime = moment().subtract(
-        faker.random.number({ min: 1, max: 5 }),
-        'hours',
-      )
-      const endTime = startTime.clone().add(
-        faker.random.number({ min: 10, max: 15 }),
-        'hours',
-      )
-      const newScheduleData = {
-        scheduleName: newScheduleName,
-        startTime: startTime.format(),
-        endTime: endTime.format(),
+  describe('addScheduleEntry action', () => {
+    it('correctly performs the addScheduleEntry action', () => {
+      const newScheduleEntryData = {
+        scheduleEntry: generateRandomScheduleEntry(null),
       }
       const expectedActions = [
-        addScheduleEntry(newScheduleData),
+        addScheduleEntry(newScheduleEntryData),
       ]
 
-      store.dispatch(addScheduleEntry(newScheduleData))
+      store.dispatch(addScheduleEntry(newScheduleEntryData))
       expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  describe('removeScheduleEntry action', () => {
+    it('correctly performs the removeScheduleEntry action', () => {
+      const scheduleEntryToRemove = generateRandomScheduleEntry(faker.random.number())
+
+      const expectedActions = [
+        removeScheduleEntry({ scheduleEntryId: scheduleEntryToRemove.id }),
+      ]
+
+      store.dispatch(removeScheduleEntry({ scheduleEntryId: scheduleEntryToRemove.id }))
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  describe('submitScheduleEntry action', () => {
+    describe('with valid schedule entry', () => {
+      let scheduleEntry: ScheduleEntry
+      beforeEach(() => {
+        scheduleEntry = generateRandomScheduleEntry(faker.random.number())
+      })
+
+      it('dispatches the submitScheduleEntryComplete action', () => {
+        const expectedActions = [
+          submitScheduleEntryStarted({ scheduleEntryId: scheduleEntry.id }),
+          submitScheduleEntryComplete({ scheduleEntryId: scheduleEntry.id }),
+        ]
+
+        store.dispatch(submitScheduleEntry(scheduleEntry))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+
+    describe('with a schedule entry that hasn\'t been saved', () => {
+      let scheduleEntryNoId: ScheduleEntry
+      beforeEach(() => {
+        scheduleEntryNoId = generateRandomScheduleEntry(null)
+      })
+
+      it('dispatches the submitScheduleEntryError action', () => {
+        const expectedActions = [
+          submitScheduleEntryError({
+            submitError: 'Schedule entry ID not present',
+          }),
+        ]
+
+        store.dispatch(submitScheduleEntry(scheduleEntryNoId))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+  })
+
+  describe('submitScheduleEntries action', () => {
+    describe('with valid schedule entry', () => {
+      let scheduleEntries: Array<ScheduleEntry>
+      beforeEach(() => {
+        scheduleEntries = _.times(3, () => generateRandomScheduleEntry(faker.random.number()))
+      })
+
+      it('dispatches the submitScheduleEntryComplete action for each schedule entry', () => {
+        const expectedActions = _.flatMap(scheduleEntries, (scheduleEntry: ScheduleEntry) => {
+          return [
+            submitScheduleEntryStarted({ scheduleEntryId: scheduleEntry.id }),
+            submitScheduleEntryComplete({ scheduleEntryId: scheduleEntry.id }),
+          ]
+        })
+
+        store.dispatch(submitScheduleEntries(scheduleEntries))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
     })
   })
 })

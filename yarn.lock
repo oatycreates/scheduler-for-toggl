@@ -59,6 +59,19 @@
   version "15.0.24"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.24.tgz#8a75299dc37906df327c18ca918bf97a55e7123b"
 
+"@types/redux-localstorage-filter@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@types/redux-localstorage-filter/-/redux-localstorage-filter-0.1.1.tgz#e88f023cbee4f8264e8bea659b058a53553d5c3c"
+  dependencies:
+    "@types/redux-localstorage" "*"
+    redux "^3.6.0"
+
+"@types/redux-localstorage@*", "@types/redux-localstorage@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/redux-localstorage/-/redux-localstorage-1.0.2.tgz#992baa4a13c9ca321937ef00cf2d40bcd9e88174"
+  dependencies:
+    redux "^3.6.0"
+
 "@types/redux-mock-store@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@types/redux-mock-store/-/redux-mock-store-0.0.7.tgz#f7b46af371da4b6ef491e57e107d326f0a832201"
@@ -4739,13 +4752,14 @@ querystringify@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
-radium@^0.18.1:
-  version "0.18.4"
-  resolved "https://registry.yarnpkg.com/radium/-/radium-0.18.4.tgz#a5da9573add6a2af99b528d07b4fd403eac2ca58"
+radium@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/radium/-/radium-0.19.1.tgz#0fbcc6d0ea5526bdb1e5e5371cad386775a3eec8"
   dependencies:
     array-find "^1.0.0"
     exenv "^1.2.1"
     inline-style-prefixer "^2.0.5"
+    prop-types "^15.5.8"
     rimraf "^2.6.1"
 
 raf@^3.1.0:
@@ -4847,12 +4861,13 @@ react-test-renderer@^15.5.4:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
 
-react-timekeeper@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-timekeeper/-/react-timekeeper-1.0.3.tgz#78191c2666880d1c207fec6332612277d4019ed3"
+react-timekeeper@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-timekeeper/-/react-timekeeper-1.0.4.tgz#120af9254d955daadd526d8b334c2334138cda86"
   dependencies:
     lodash "^4.17.4"
-    radium "^0.18.1"
+    prop-types "^15.5.10"
+    radium "^0.19.1"
     react-motion "^0.4.7"
 
 react@^15.5.4:
@@ -4946,6 +4961,14 @@ reduce-function-call@^1.0.1:
 redux-devtools-extension@^2.13.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.2.tgz#e0f9a8e8dfca7c17be92c7124958a3b94eb2911d"
+
+redux-localstorage-filter@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/redux-localstorage-filter/-/redux-localstorage-filter-0.1.1.tgz#94c5ab68d8cda479bb3cc6cdf03569f8f63a188d"
+
+redux-localstorage@^1.0.0-rc4:
+  version "1.0.0-rc5"
+  resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-1.0.0-rc5.tgz#7067bc4cb0b03b5c791025ac33dde6175d50d5d1"
 
 redux-mock-store@^1.2.3:
   version "1.2.3"
