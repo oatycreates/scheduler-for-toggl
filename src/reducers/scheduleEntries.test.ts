@@ -77,7 +77,7 @@ describe('scheduleEntries reducer', () => {
   describe('submit schedule entry actions', () => {
     let scheduleEntry: ScheduleEntry
     beforeEach(() => {
-      scheduleEntry = generateRandomScheduleEntry()
+      scheduleEntry = generateRandomScheduleEntry(faker.random.number())
       state.scheduleEntries.entries = [scheduleEntry]
     })
 

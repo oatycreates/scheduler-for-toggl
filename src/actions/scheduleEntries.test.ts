@@ -41,7 +41,7 @@ describe('scheduleEntries actions', () => {
   describe('addScheduleEntry action', () => {
     it('correctly performs the addScheduleEntry action', () => {
       const newScheduleEntryData = {
-        scheduleEntry: generateRandomScheduleEntry(),
+        scheduleEntry: generateRandomScheduleEntry(null),
       }
       const expectedActions = [
         addScheduleEntry(newScheduleEntryData),
@@ -69,7 +69,7 @@ describe('scheduleEntries actions', () => {
     describe('with valid schedule entry', () => {
       let scheduleEntry: ScheduleEntry
       beforeEach(() => {
-        scheduleEntry = generateRandomScheduleEntry()
+        scheduleEntry = generateRandomScheduleEntry(faker.random.number())
       })
 
       it('dispatches the submitScheduleEntryComplete action', () => {
@@ -106,7 +106,7 @@ describe('scheduleEntries actions', () => {
     describe('with valid schedule entry', () => {
       let scheduleEntries: Array<ScheduleEntry>
       beforeEach(() => {
-        scheduleEntries = _.times(3, () => generateRandomScheduleEntry())
+        scheduleEntries = _.times(3, () => generateRandomScheduleEntry(faker.random.number()))
       })
 
       it('dispatches the submitScheduleEntryComplete action for each schedule entry', () => {

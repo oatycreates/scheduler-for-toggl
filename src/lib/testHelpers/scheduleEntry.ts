@@ -3,7 +3,7 @@ import * as moment from 'moment'
 import { ScheduleEntry } from '../../reducers/scheduleEntries'
 
 export function generateRandomScheduleEntry(
-    id: number | null = 0,
+    id: number | null,
     overrideData?: Partial<ScheduleEntry>): ScheduleEntry {
   const newScheduleName = faker.lorem.sentence()
   const startTime = moment().subtract(
