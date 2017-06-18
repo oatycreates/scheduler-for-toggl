@@ -1,4 +1,5 @@
 import * as faker from 'faker'
+import * as TogglApiClient from 'toggl-api'
 
 class TogglClient {
   options = {
@@ -29,4 +30,21 @@ export const initTogglClient = (options: { apiToken: string }) => {
 
 export const getTogglClient = () => {
   return togglClient
+}
+
+export const formatTogglApiErrorMessage = (err: TogglApiClient.APIError) => {
+  let errorMessage = ''
+  if (err.code) {
+    // Toggl API responded with an error
+    errorMessage = err.code.toString()
+  } else if (err.message) {
+    // HTTP request to Toggl API failed
+    errorMessage = err.message
+  }
+
+  if (err.errors && err.errors.length > 0) {
+    errorMessage += `: ${err.errors.join(', ')}`
+  }
+
+  return errorMessage
 }

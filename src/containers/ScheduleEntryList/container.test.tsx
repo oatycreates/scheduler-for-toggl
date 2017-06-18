@@ -39,9 +39,11 @@ describe('ScheduleEntryList container', () => {
         'hours',
       )
       store.dispatch(addScheduleEntry({
-        scheduleName,
-        startTime: startTime.format(),
-        endTime: endTime.format(),
+        scheduleEntry: {
+          scheduleName,
+          startTime: startTime.format(),
+          endTime: endTime.format(),
+        },
       }))
     })
 

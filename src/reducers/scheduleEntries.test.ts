@@ -34,9 +34,11 @@ describe('scheduleEntries reducer', () => {
       )
       state.scheduleEntries =
         scheduleEntries(state.scheduleEntries, addScheduleEntry({
-          scheduleName: newScheduleName,
-          startTime: startTime.format(),
-          endTime: endTime.format(),
+          scheduleEntry: {
+            scheduleName: newScheduleName,
+            startTime: startTime.format(),
+            endTime: endTime.format(),
+          },
         }))
       expect(state.scheduleEntries.length).toEqual(1)
       const newScheduleEntry = state.scheduleEntries[state.scheduleEntries.length - 1]
