@@ -1,5 +1,6 @@
 import * as faker from 'faker'
 import * as moment from 'moment'
+import { generateRandomScheduleEntry } from '../lib/testHelpers/scheduleEntry'
 import { scheduleEntries } from './scheduleEntries'
 import { SchedulerForTogglAppState } from './'
 
@@ -22,27 +23,14 @@ describe('scheduleEntries reducer', () => {
 
   describe('addScheduleEntry action', () => {
     it('creates a valid entry when the schedule details are specified', () => {
-      const newScheduleName = faker.lorem.sentence()
-
-      const startTime = moment().subtract(
-        faker.random.number({ min: 1, max: 5 }),
-        'hours',
-      )
-      const endTime = startTime.clone().add(
-        faker.random.number({ min: 10, max: 15 }),
-        'hours',
-      )
+      const scheduleEntryData = {
+        scheduleEntry: generateRandomScheduleEntry(),
+      }
       state.scheduleEntries =
-        scheduleEntries(state.scheduleEntries, addScheduleEntry({
-          scheduleEntry: {
-            scheduleName: newScheduleName,
-            startTime: startTime.format(),
-            endTime: endTime.format(),
-          },
-        }))
+        scheduleEntries(state.scheduleEntries, addScheduleEntry(scheduleEntryData))
       expect(state.scheduleEntries.length).toEqual(1)
       const newScheduleEntry = state.scheduleEntries[state.scheduleEntries.length - 1]
-      expect(newScheduleEntry.scheduleName).toEqual(newScheduleName)
+      expect(newScheduleEntry.scheduleName).toEqual(scheduleEntryData.scheduleEntry.scheduleName)
     })
   })
 })

@@ -1,7 +1,7 @@
 import * as faker from 'faker'
-import * as moment from 'moment'
-import configureStore, { IStore } from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import configureStore, { IStore } from 'redux-mock-store'
+import { generateRandomScheduleEntry } from '../lib/testHelpers/scheduleEntry'
 import { SchedulerForTogglAppState, initialSchedulerForTogglAppState } from '../reducers/'
 
 // Initialise a mocked Redux store with relevant middleware
@@ -19,27 +19,16 @@ describe('scheduleEntries actions', () => {
     store = mockStore(initialSchedulerForTogglAppState)
   })
 
-  describe('changeApiToken action', () => {
-    it('correctly performs the changeApiToken action', () => {
-      const newScheduleName = faker.lorem.sentence()
-      const startTime = moment().subtract(
-        faker.random.number({ min: 1, max: 5 }),
-        'hours',
-      )
-      const endTime = startTime.clone().add(
-        faker.random.number({ min: 10, max: 15 }),
-        'hours',
-      )
-      const newScheduleData = {
-        scheduleName: newScheduleName,
-        startTime: startTime.format(),
-        endTime: endTime.format(),
+  describe('addScheduleEntry action', () => {
+    it('correctly performs the addScheduleEntry action', () => {
+      const newScheduleEntryData = {
+        scheduleEntry: generateRandomScheduleEntry(),
       }
       const expectedActions = [
-        addScheduleEntry(newScheduleData),
+        addScheduleEntry(newScheduleEntryData),
       ]
 
-      store.dispatch(addScheduleEntry(newScheduleData))
+      store.dispatch(addScheduleEntry(newScheduleEntryData))
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
