@@ -40,7 +40,7 @@ export const ScheduleEntryField: React.StatelessComponent<ScheduleEntryFieldProp
             onClick={props.onScheduleEntryCreate}
             buttonStyle={ButtonStyles.primary}
             disabled={hasBlankScheduleName}
-            buttonText="Submit"
+            buttonText="Add"
           />
         </span>
       </div>
