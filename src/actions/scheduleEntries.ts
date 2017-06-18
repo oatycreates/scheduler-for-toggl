@@ -20,7 +20,10 @@ const SUBMIT_SCHEDULE_ENTRY_ERROR = 'SUBMIT_SCHEDULE_ENTRY_ERROR'
 export const addScheduleEntry = actionCreator<{scheduleEntry: ScheduleEntry}>(ADD_SCHEDULE_ENTRY)
 export const submitScheduleEntryStarted = actionCreator<{scheduleEntryId: number}>(SUBMIT_SCHEDULE_ENTRY)
 export const submitScheduleEntryComplete = actionCreator<{scheduleEntryId: number}>(SUBMIT_SCHEDULE_ENTRY_COMPLETE)
-export const submitScheduleEntryError = actionCreator<{submitError: string}>(SUBMIT_SCHEDULE_ENTRY_ERROR)
+export const submitScheduleEntryError = actionCreator<{
+  scheduleEntryId?: number,
+  submitError: string,
+}>(SUBMIT_SCHEDULE_ENTRY_ERROR)
 
 /**
  * Thunks
@@ -31,7 +34,7 @@ export function submitScheduleEntry(scheduleEntry: ScheduleEntry) {
     // Stop if an invalid ID was passed
     if (typeof(scheduleEntry.id) === 'undefined') {
       dispatch(submitScheduleEntryError({
-        submitError: 'Schedule entry ID not present: ${scheduleEntryId}',
+        submitError: 'Schedule entry ID not present',
       }))
 
       return
@@ -50,6 +53,7 @@ export function submitScheduleEntry(scheduleEntry: ScheduleEntry) {
       if (err) {
         // An API error was raised
         dispatch(submitScheduleEntryError({
+          scheduleEntryId: scheduleEntryId,
           submitError: formatTogglApiErrorMessage(err),
         }))
       } else {

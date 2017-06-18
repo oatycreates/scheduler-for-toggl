@@ -1,14 +1,10 @@
+// Mock Toggl imports to prevent actual API access
+jest.mock('../apiClients/TogglClient')
+
 import * as faker from 'faker'
 import configureStore, { IStore } from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { SchedulerForTogglAppState } from '../reducers/'
-
-// Initialise a mocked Redux store with relevant middleware
-const middlewares = [thunk]
-const mockStore = configureStore<Partial<SchedulerForTogglAppState>>(middlewares)
-
-// Mock Toggl imports to prevent actual API access
-jest.mock('../apiClients/TogglClient')
 
 import {
   changeApiToken,
@@ -17,6 +13,10 @@ import {
   validateApiTokenError,
   submitApiToken,
 } from './apiToken'
+
+// Initialise a mocked Redux store with relevant middleware
+const middlewares = [thunk]
+const mockStore = configureStore<Partial<SchedulerForTogglAppState>>(middlewares)
 
 describe('apiToken actions', () => {
   let store: IStore<Partial<SchedulerForTogglAppState>>

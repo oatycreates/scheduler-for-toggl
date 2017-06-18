@@ -8,6 +8,9 @@ import { TimeEntry } from 'toggl-api'
 
 import {
   addScheduleEntry,
+  submitScheduleEntryStarted,
+  submitScheduleEntryComplete,
+  submitScheduleEntryError,
 } from '../actions/scheduleEntries'
 
 /**
@@ -20,18 +23,23 @@ export interface ScheduleEntry {
   startTime: string,
   endTime: string,
   isSubmitting?: boolean,
-  submitError?: string,
 }
 
 /**
  * Partial state type signature
  */
-export type ScheduleEntriesState = Array<ScheduleEntry>
+export interface ScheduleEntriesState {
+  entries: Array<ScheduleEntry>,
+  submitError?: string,
+}
 
 /**
  * Initial state of this reducer.
  */
-export const initialScheduleEntriesState = Array<ScheduleEntry>() as ScheduleEntriesState
+export const initialScheduleEntriesState = {
+  entries: Array<ScheduleEntry>(),
+  submitError: undefined,
+} as ScheduleEntriesState
 
 /**
  * Returns the partial state that has been altered by the input action.
@@ -39,18 +47,44 @@ export const initialScheduleEntriesState = Array<ScheduleEntry>() as ScheduleEnt
  * @param action Action to be handled by this reducer.
  */
 export function scheduleEntries(
-    scheduleEntries: ScheduleEntriesState = initialScheduleEntriesState, action: Action<{}>) {
+    scheduleEntriesState: ScheduleEntriesState = initialScheduleEntriesState,
+    action: Action<{}>): ScheduleEntriesState {
   if (isType(action, addScheduleEntry)) {
     // Append the new schedule entry to the end of existing entries
-    return [...scheduleEntries, {
-      id: 1 + getMaxScheduleEntryId(scheduleEntries),
-      scheduleName: action.payload.scheduleEntry.scheduleName,
-      // ISO string formatted Moment times
-      startTime: action.payload.scheduleEntry.startTime,
-      endTime: action.payload.scheduleEntry.endTime,
-    }]
+    return Object.assign({}, scheduleEntriesState, {
+      entries: [
+        ...scheduleEntriesState.entries,
+        Object.assign({}, action.payload.scheduleEntry, {
+          id: 1 + getMaxScheduleEntryId(scheduleEntriesState.entries),
+        }),
+      ],
+    })
+  } else if (isType(action, submitScheduleEntryStarted)) {
+    return Object.assign({}, scheduleEntriesState, {
+      entries: scheduleEntriesState.entries.map((scheduleEntry) => {
+        if (scheduleEntry.id === action.payload.scheduleEntryId) {
+          scheduleEntry.isSubmitting = true
+        }
+        return scheduleEntry
+      }),
+      submitError: null,
+    })
+  } else if (isType(action, submitScheduleEntryComplete)) {
+    return Object.assign({}, scheduleEntriesState, {
+      entries: scheduleEntriesState.entries.map((scheduleEntry) => {
+        if (scheduleEntry.id === action.payload.scheduleEntryId) {
+          scheduleEntry.isSubmitting = false
+        }
+        return scheduleEntry
+      }),
+    })
+  } else if (isType(action, submitScheduleEntryError)) {
+    return Object.assign({}, scheduleEntriesState, {
+      submitError: `Error while submitting schedule entry
+        ${action.payload.scheduleEntryId}, error: ${action.payload.submitError}`,
+    })
   } else {
-    return scheduleEntries
+    return scheduleEntriesState
   }
 }
 

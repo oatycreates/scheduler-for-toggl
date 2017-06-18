@@ -4,6 +4,7 @@ import * as moment from 'moment'
 import { shallow, ShallowWrapper, mount, ReactWrapper } from 'enzyme'
 import { Store, Provider } from 'react-redux'
 import { buildReduxStore } from '../../lib/testHelpers/'
+import { generateRandomScheduleEntry } from '../../lib/testHelpers/scheduleEntry'
 import ScheduleEntryList, { ScheduleEntryListContainerProps } from './container'
 import { addScheduleEntry } from '../../actions/scheduleEntries'
 
@@ -22,7 +23,7 @@ describe('ScheduleEntryList container', () => {
   })
 
   describe('when a schedule entry item is added', () => {
-    const scheduleName = faker.lorem.sentence()
+    let scheduleName: string
     let container: ReactWrapper<ScheduleEntryListContainerProps, {}>
 
     beforeEach(() => {
@@ -30,21 +31,9 @@ describe('ScheduleEntryList container', () => {
       container = mount(<Provider store={store}><ScheduleEntryList /></Provider>)
 
       // Dispatch an action to create the schedule entry
-      const startTime = moment().subtract(
-        faker.random.number({ min: 1, max: 5 }),
-        'hours',
-      )
-      const endTime = startTime.clone().add(
-        faker.random.number({ min: 10, max: 15 }),
-        'hours',
-      )
-      store.dispatch(addScheduleEntry({
-        scheduleEntry: {
-          scheduleName,
-          startTime: startTime.format(),
-          endTime: endTime.format(),
-        },
-      }))
+      scheduleName = faker.lorem.sentence()
+      const scheduleEntry = generateRandomScheduleEntry(null, { scheduleName })
+      store.dispatch(addScheduleEntry({ scheduleEntry }))
     })
 
     it('displays the schedule entry', () => {

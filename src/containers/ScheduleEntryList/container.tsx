@@ -17,7 +17,8 @@ export interface ScheduleEntryListContainerStateDispatches {
 }
 
 export interface ScheduleEntryListContainerStateProps {
-  scheduleEntries: Array<ScheduleEntry>
+  scheduleEntries: Array<ScheduleEntry>,
+  submitError?: string,
 }
 
 // Combine props from mapStateToProps and mapDispatchToProps for container props
@@ -50,12 +51,6 @@ class ScheduleEntryListContainer extends
         this.props.onScheduleEntrySubmit(scheduleEntry)
       }
     }
-    const errorText = (scheduleEntry.submitError && scheduleEntry.submitError.length > 0) ?
-      (
-        <p className="text-danger">
-          Error occured when submitting schedule entry: {scheduleEntry.submitError}
-        </p>
-      ) : null
 
     return (
       <div key={scheduleEntry.id}>
@@ -69,7 +64,6 @@ class ScheduleEntryListContainer extends
           onClick={scheduleEntrySubmit}
           buttonText="Submit"
         />
-        {errorText}
       </div>
     )
   }
@@ -80,6 +74,12 @@ class ScheduleEntryListContainer extends
         return this.renderScheduleEntry(scheduleEntry)
       })
     )
+    const errorText = (this.props.submitError && this.props.submitError.length > 0) ?
+      (
+        <p className="text-danger">
+          Error occured when submitting schedule entry: {this.props.submitError}
+        </p>
+      ) : null
 
     return (
       <div>
@@ -89,6 +89,7 @@ class ScheduleEntryListContainer extends
           onClick={this.onSubmitAllScheduleEntries}
           buttonText="Submit All"
         />
+        {errorText}
       </div>
     )
   }
@@ -116,7 +117,8 @@ const mapStateToProps = (state: SchedulerForTogglAppState): ScheduleEntryListCon
   // Extract the desired properties out of the state tree
   const { scheduleEntries } = state
   return {
-    scheduleEntries,
+    scheduleEntries: scheduleEntries.entries,
+    submitError: scheduleEntries.submitError,
   }
 }
 
