@@ -95,12 +95,18 @@ class ScheduleEntryListContainer extends
         </p>
       ) : null
 
+    // For checking if any schedule entry is presently submitting
+    const submittingScheduleEntry = this.props.scheduleEntries.find((scheduleEntry: ScheduleEntry) => {
+      return !!scheduleEntry.isSubmitting
+    })
+
     return (
       <div>
         {scheduleEntries}
         <Button
           buttonStyle={ButtonStyles.primary}
           onClick={this.onSubmitAllScheduleEntries}
+          disabled={typeof(submittingScheduleEntry) !== 'undefined'}
           buttonText="Submit All"
         />
         {errorText}
