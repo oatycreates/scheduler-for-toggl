@@ -3,7 +3,7 @@
   "description": "Web tool to streamline adding regular schedule entries to the Toggl time tracking service.",
   "version": "0.2.0",
   "license": "GPL-3.0",
-  "homepage": "https://github.com/patferguson/scheduler-for-toggl",
+  "homepage": "https://scheduler-for-toggl.ferguson.cloud/",
   "author": {
     "name": "Patrick Ferguson",
     "url": "https://patrickferguson.cloud/"
