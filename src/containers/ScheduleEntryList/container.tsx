@@ -69,11 +69,13 @@ class ScheduleEntryListContainer extends
         <Button
           buttonStyle={ButtonStyles.primary}
           onClick={scheduleEntrySubmit}
-          buttonText="Submit"
+          disabled={scheduleEntry.isSubmitting}
+          buttonText={scheduleEntry.isSubmitting ? 'Submitting..' : 'Submit'}
         />
         <Button
           buttonStyle={ButtonStyles.danger}
           onClick={scheduleEntryRemove}
+          disabled={scheduleEntry.isSubmitting}
           buttonText="Remove"
         />
       </div>
