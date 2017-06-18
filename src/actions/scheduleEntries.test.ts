@@ -12,6 +12,7 @@ import { initTogglClient } from '../apiClients/TogglClient'
 
 import {
   addScheduleEntry,
+  removeScheduleEntry,
   submitScheduleEntryStarted,
   submitScheduleEntryComplete,
   submitScheduleEntryError,
@@ -47,6 +48,19 @@ describe('scheduleEntries actions', () => {
       ]
 
       store.dispatch(addScheduleEntry(newScheduleEntryData))
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  describe('removeScheduleEntry action', () => {
+    it('correctly performs the removeScheduleEntry action', () => {
+      const scheduleEntryToRemove = generateRandomScheduleEntry(faker.random.number())
+
+      const expectedActions = [
+        removeScheduleEntry({ scheduleEntryId: scheduleEntryToRemove.id }),
+      ]
+
+      store.dispatch(removeScheduleEntry({ scheduleEntryId: scheduleEntryToRemove.id }))
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

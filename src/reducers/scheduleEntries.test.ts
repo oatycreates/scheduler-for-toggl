@@ -10,6 +10,7 @@ import { SchedulerForTogglAppState } from './'
 
 import {
   addScheduleEntry,
+  removeScheduleEntry,
   submitScheduleEntryStarted,
   submitScheduleEntryComplete,
   submitScheduleEntryError,
@@ -39,6 +40,37 @@ describe('scheduleEntries reducer', () => {
       const newScheduleEntry = state.scheduleEntries.entries[numScheduleEntries - 1]
       expect(numScheduleEntries).toEqual(1)
       expect(newScheduleEntry.scheduleName).toEqual(scheduleEntryData.scheduleEntry.scheduleName)
+    })
+  })
+
+  describe('removeScheduleEntry action', () => {
+    let scheduleEntry: ScheduleEntry
+    beforeEach(() => {
+      // Start with a schedule entry
+      scheduleEntry = generateRandomScheduleEntry(null)
+      state.scheduleEntries.entries = [scheduleEntry]
+    })
+
+    it('removes the provided entry when the schedule details are specified', () => {
+      // Ensure the schedule entry exists before attempting the removal
+      const scheduleEntryToRemove = state.scheduleEntries.entries.find((iterScheduleEntry: ScheduleEntry) => {
+        return iterScheduleEntry.id === scheduleEntry.id
+      })
+      expect(scheduleEntryToRemove).not.toBeNull()
+
+      // Remove the entry
+      state.scheduleEntries = scheduleEntries(
+        state.scheduleEntries,
+        removeScheduleEntry({
+          scheduleEntryId: scheduleEntry.id,
+        }),
+      )
+
+      // Ensure the schedule entry has been removed
+      const foundScheduleEntry = state.scheduleEntries.entries.find((iterScheduleEntry: ScheduleEntry) => {
+        return iterScheduleEntry.id === scheduleEntry.id
+      })
+      expect(foundScheduleEntry).toBeUndefined()
     })
   })
 

@@ -9,6 +9,7 @@ import { getTogglClient, formatTogglApiErrorMessage } from '../apiClients/TogglC
  */
 
 const ADD_SCHEDULE_ENTRY = 'ADD_SCHEDULE_ENTRY'
+const REMOVE_SCHEDULE_ENTRY = 'REMOVE_SCHEDULE_ENTRY'
 const SUBMIT_SCHEDULE_ENTRY = 'SUBMIT_SCHEDULE_ENTRY'
 const SUBMIT_SCHEDULE_ENTRY_COMPLETE = 'SUBMIT_SCHEDULE_ENTRY_COMPLETE'
 const SUBMIT_SCHEDULE_ENTRY_ERROR = 'SUBMIT_SCHEDULE_ENTRY_ERROR'
@@ -18,6 +19,7 @@ const SUBMIT_SCHEDULE_ENTRY_ERROR = 'SUBMIT_SCHEDULE_ENTRY_ERROR'
  */
 
 export const addScheduleEntry = actionCreator<{scheduleEntry: ScheduleEntry}>(ADD_SCHEDULE_ENTRY)
+export const removeScheduleEntry = actionCreator<{scheduleEntryId: number}>(REMOVE_SCHEDULE_ENTRY)
 export const submitScheduleEntryStarted = actionCreator<{scheduleEntryId: number}>(SUBMIT_SCHEDULE_ENTRY)
 export const submitScheduleEntryComplete = actionCreator<{scheduleEntryId: number}>(SUBMIT_SCHEDULE_ENTRY_COMPLETE)
 export const submitScheduleEntryError = actionCreator<{

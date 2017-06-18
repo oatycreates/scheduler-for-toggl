@@ -8,6 +8,7 @@ import { TimeEntry } from 'toggl-api'
 
 import {
   addScheduleEntry,
+  removeScheduleEntry,
   submitScheduleEntryStarted,
   submitScheduleEntryComplete,
   submitScheduleEntryError,
@@ -59,7 +60,15 @@ export function scheduleEntries(
         }),
       ],
     })
+  } else if (isType(action, removeScheduleEntry)) {
+    // Filter out the entry to be removed
+    return Object.assign({}, scheduleEntriesState, {
+      entries: scheduleEntriesState.entries.filter((scheduleEntry) => {
+        return scheduleEntry.id !== action.payload.scheduleEntryId
+      }),
+    })
   } else if (isType(action, submitScheduleEntryStarted)) {
+    // Mark the input entry as 'submitting'
     return Object.assign({}, scheduleEntriesState, {
       entries: scheduleEntriesState.entries.map((scheduleEntry) => {
         if (scheduleEntry.id === action.payload.scheduleEntryId) {
@@ -70,6 +79,7 @@ export function scheduleEntries(
       submitError: null,
     })
   } else if (isType(action, submitScheduleEntryComplete)) {
+    // Mark the completed entry as no longer 'submitting'
     return Object.assign({}, scheduleEntriesState, {
       entries: scheduleEntriesState.entries.map((scheduleEntry) => {
         if (scheduleEntry.id === action.payload.scheduleEntryId) {
@@ -79,6 +89,7 @@ export function scheduleEntries(
       }),
     })
   } else if (isType(action, submitScheduleEntryError)) {
+    // Store the provided error
     return Object.assign({}, scheduleEntriesState, {
       submitError: action.payload.submitError,
     })

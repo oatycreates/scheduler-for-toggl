@@ -3,7 +3,7 @@ import * as moment from 'moment'
 import { connect } from 'react-redux'
 import { SchedulerForTogglAppState } from '../../reducers'
 import { ScheduleEntry } from '../../reducers/scheduleEntries'
-import { submitScheduleEntry, submitScheduleEntries } from '../../actions/scheduleEntries'
+import { submitScheduleEntry, removeScheduleEntry, submitScheduleEntries } from '../../actions/scheduleEntries'
 import { Button, ButtonStyles } from '../../components/Button'
 import ScheduleEntryPanel from '../../components/ScheduleEntryPanel'
 
@@ -13,6 +13,7 @@ import ScheduleEntryPanel from '../../components/ScheduleEntryPanel'
 
 export interface ScheduleEntryListContainerStateDispatches {
   onScheduleEntrySubmit?: (scheduleEntry: ScheduleEntry) => void,
+  onScheduleEntryRemove?: (scheduleEntry: ScheduleEntry) => void,
   onSubmitAllScheduleEntries?: (scheduleEntries: ReadonlyArray<ScheduleEntry>) => void,
 }
 
@@ -51,6 +52,12 @@ class ScheduleEntryListContainer extends
         this.props.onScheduleEntrySubmit(scheduleEntry)
       }
     }
+    // Bind the schedule entry remove function for this schedule entry panel
+    const scheduleEntryRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (this.props.onScheduleEntryRemove) {
+        this.props.onScheduleEntryRemove(scheduleEntry)
+      }
+    }
 
     return (
       <div key={scheduleEntry.id}>
@@ -63,6 +70,11 @@ class ScheduleEntryListContainer extends
           buttonStyle={ButtonStyles.primary}
           onClick={scheduleEntrySubmit}
           buttonText="Submit"
+        />
+        <Button
+          buttonStyle={ButtonStyles.danger}
+          onClick={scheduleEntryRemove}
+          buttonText="Remove"
         />
       </div>
     )
@@ -131,10 +143,14 @@ const mapDispatchToProps = (dispatch: Function): ScheduleEntryListContainerState
     onScheduleEntrySubmit: (scheduleEntry: ScheduleEntry) => {
       dispatch(submitScheduleEntry(scheduleEntry))
     },
+    onScheduleEntryRemove: (scheduleEntry: ScheduleEntry) => {
+      if (typeof(scheduleEntry.id) !== 'undefined') {
+        dispatch(removeScheduleEntry({ scheduleEntryId: scheduleEntry.id }))
+      }
+    },
     onSubmitAllScheduleEntries: (scheduleEntries: ReadonlyArray<ScheduleEntry>) => {
       dispatch(submitScheduleEntries(scheduleEntries))
     },
-    // TODO: Add thunk for submitting all schedule entries to Toggl
   }
 }
 
