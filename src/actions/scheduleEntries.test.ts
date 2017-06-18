@@ -2,6 +2,7 @@
 jest.mock('../apiClients/TogglClient')
 
 import * as faker from 'faker'
+import * as _ from 'lodash'
 import thunk from 'redux-thunk'
 import configureStore, { IStore } from 'redux-mock-store'
 import { generateRandomScheduleEntry } from '../lib/testHelpers/scheduleEntry'
@@ -15,6 +16,7 @@ import {
   submitScheduleEntryComplete,
   submitScheduleEntryError,
   submitScheduleEntry,
+  submitScheduleEntries,
 } from './scheduleEntries'
 
 // Initialise a mocked Redux store with relevant middleware
@@ -81,6 +83,27 @@ describe('scheduleEntries actions', () => {
         ]
 
         store.dispatch(submitScheduleEntry(scheduleEntryNoId))
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+  })
+
+  describe('submitScheduleEntries action', () => {
+    describe('with valid schedule entry', () => {
+      let scheduleEntries: Array<ScheduleEntry>
+      beforeEach(() => {
+        scheduleEntries = _.times(3, () => generateRandomScheduleEntry())
+      })
+
+      it('dispatches the submitScheduleEntryComplete action for each schedule entry', () => {
+        const expectedActions = _.flatMap(scheduleEntries, (scheduleEntry: ScheduleEntry) => {
+          return [
+            submitScheduleEntryStarted({ scheduleEntryId: scheduleEntry.id }),
+            submitScheduleEntryComplete({ scheduleEntryId: scheduleEntry.id }),
+          ]
+        })
+
+        store.dispatch(submitScheduleEntries(scheduleEntries))
         expect(store.getActions()).toEqual(expectedActions)
       })
     })
