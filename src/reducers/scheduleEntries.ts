@@ -80,8 +80,7 @@ export function scheduleEntries(
     })
   } else if (isType(action, submitScheduleEntryError)) {
     return Object.assign({}, scheduleEntriesState, {
-      submitError: `Error while submitting schedule entry
-        ${action.payload.scheduleEntryId}, error: ${action.payload.submitError}`,
+      submitError: action.payload.submitError,
     })
   } else {
     return scheduleEntriesState

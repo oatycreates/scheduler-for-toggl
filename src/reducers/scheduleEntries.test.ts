@@ -10,6 +10,9 @@ import { SchedulerForTogglAppState } from './'
 
 import {
   addScheduleEntry,
+  submitScheduleEntryStarted,
+  submitScheduleEntryComplete,
+  submitScheduleEntryError,
 } from '../actions/scheduleEntries'
 
 describe('scheduleEntries reducer', () => {
@@ -36,6 +39,61 @@ describe('scheduleEntries reducer', () => {
       const newScheduleEntry = state.scheduleEntries.entries[numScheduleEntries - 1]
       expect(numScheduleEntries).toEqual(1)
       expect(newScheduleEntry.scheduleName).toEqual(scheduleEntryData.scheduleEntry.scheduleName)
+    })
+  })
+
+  describe('submit schedule entry actions', () => {
+    let scheduleEntry: ScheduleEntry
+    beforeEach(() => {
+      scheduleEntry = generateRandomScheduleEntry()
+      state.scheduleEntries.entries = [scheduleEntry]
+    })
+
+    describe('submitScheduleEntryStarted action', () => {
+      it('sets the submitting flag on the schedule entry', () => {
+        state.scheduleEntries = scheduleEntries(
+          state.scheduleEntries,
+          submitScheduleEntryStarted({
+            scheduleEntryId: scheduleEntry.id,
+          }),
+        )
+
+        const modifiedScheduleEntry = state.scheduleEntries.entries.find((iterScheduleEntry: ScheduleEntry) => {
+          return iterScheduleEntry.id === scheduleEntry.id
+        })
+        expect(modifiedScheduleEntry.isSubmitting).toEqual(true)
+      })
+    })
+
+    describe('submitScheduleEntryComplete action', () => {
+      it('clears the submitting flag on the schedule entry', () => {
+        state.scheduleEntries = scheduleEntries(
+          state.scheduleEntries,
+          submitScheduleEntryComplete({
+            scheduleEntryId: scheduleEntry.id,
+          }),
+        )
+
+        const modifiedScheduleEntry = state.scheduleEntries.entries.find((iterScheduleEntry: ScheduleEntry) => {
+          return iterScheduleEntry.id === scheduleEntry.id
+        })
+        expect(modifiedScheduleEntry.isSubmitting).toEqual(false)
+      })
+    })
+
+    describe('submitScheduleEntryError action', () => {
+      const submitError = faker.lorem.sentence()
+
+      it('sets the schedule entries submit error message', () => {
+        state.scheduleEntries = scheduleEntries(
+          state.scheduleEntries,
+          submitScheduleEntryError({
+            submitError: submitError,
+          }),
+        )
+
+        expect(state.scheduleEntries.submitError).toEqual(submitError)
+      })
     })
   })
 })
