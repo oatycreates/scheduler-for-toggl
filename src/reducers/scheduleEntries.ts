@@ -1,6 +1,4 @@
-import * as moment from 'moment'
 import { Action, isType } from '../actions/actionCreator'
-import { TimeEntry } from 'toggl-api'
 
 /**
  * Action creators
@@ -110,19 +108,4 @@ function getMaxScheduleEntryId(scheduleEntries: ReadonlyArray<ScheduleEntry>) {
     (maxId, scheduleEntry) => Math.max(typeof(scheduleEntry.id) !== 'undefined' ? scheduleEntry.id : -1, maxId),
     -1,
   )
-}
-
-/**
- * Data converters
- */
-
-export function scheduleEntryToTogglTimeEntry(scheduleEntry: ScheduleEntry): TimeEntry {
-  const startTime = moment(scheduleEntry.startTime)
-  const endTime = moment(scheduleEntry.endTime)
-  return {
-    description: scheduleEntry.scheduleName,
-    start: startTime.toISOString(),
-    stop: endTime.toISOString(),
-    duration: moment.duration(endTime.diff(startTime, 'milliseconds', true), 'milliseconds').asSeconds(),
-  }
 }
