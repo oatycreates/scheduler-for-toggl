@@ -10,6 +10,8 @@
 
 ## v0.2.0 (Jun 19, 2017)
 
+[Pull request #4](https://github.com/patferguson/scheduler-for-toggl/pull/4):
+
 * GitHub pages static site build.
 
 * Add schedule entries with add/remove functionality.
@@ -17,6 +19,8 @@
 * Ability to submit one or all entries to Toggl, only submits original datetime for start/stop times.
 
 ## v0.1.0 (Jun 19, 2017)
+
+[Pull request #1](https://github.com/patferguson/scheduler-for-toggl/pull/1):
 
 * Webpack build pipeline based off create-react-app.
 
