@@ -72,6 +72,22 @@ declare module 'toggl-api' {
     }
 
     /**
+     * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/cors.md
+     */
+    export interface CorsRequest {
+      "domain": string,
+    }
+
+    /**
+     * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/cors.md
+     */
+    export interface CorsResponse {
+      "id": number,
+      "domain": string,
+      "user_id": number,
+    }
+
+    /**
     * Classes
     */
 

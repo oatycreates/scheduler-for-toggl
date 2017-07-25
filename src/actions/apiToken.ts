@@ -1,7 +1,12 @@
 import { actionCreator } from './actionCreator'
 import { Dispatch } from 'redux'
 import * as TogglClient from 'toggl-api'
-import { initTogglClient, getTogglClient, formatTogglApiErrorMessage } from '../apiClients/TogglClient'
+import {
+  initTogglClient,
+  getTogglClient,
+  ensureCorsIsWhitelisted,
+  formatTogglApiErrorMessage,
+} from '../apiClients/TogglClient'
 
 /**
  * Action types
@@ -31,9 +36,10 @@ export function submitApiToken(apiToken: string = '') {
     dispatch(validateApiToken({}))
 
     // Attempt to intialise the TogglClient
-    initTogglClient({
-      apiToken,
-    })
+    initTogglClient({ apiToken })
+
+    // Ensure that the app's domain has been whitelisted for CORS
+    ensureCorsIsWhitelisted(apiToken)
 
     // Verify that the API token worked by attempting to fetch the user data
     const togglClient = getTogglClient()

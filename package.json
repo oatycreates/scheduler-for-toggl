@@ -38,6 +38,7 @@
     "@types/redux-localstorage": "^1.0.2",
     "@types/redux-localstorage-filter": "^0.1.1",
     "@types/redux-mock-store": "^0.0.7",
+    "@types/whatwg-fetch": "^0.0.33",
     "app-root-path": "^2.0.1",
     "autoprefixer": "7.1.0",
     "babel-core": "6.24.1",
