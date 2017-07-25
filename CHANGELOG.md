@@ -4,22 +4,26 @@
 
 # Version Preparation
 
-Any *-beta.# versions should go here before eventually migrating to the Released Versions section
+*Any \*-beta.\# versions should go here before eventually migrating to the Released Versions section*
 
 # Released Versions
 
-## v0.0.0 (Jun 19, 2017)
-
-Initial site build, included:
+## v0.2.0 (Jun 19, 2017)
 
 * GitHub pages static site build.
+
+* Add schedule entries with add/remove functionality.
+
+* Ability to submit one or all entries to Toggl, only submits original datetime for start/stop times.
+
+## v0.1.0 (Jun 19, 2017)
 
 * Webpack build pipeline based off create-react-app.
 
 * Toggl API integration.
 
-* Basic schedule entry creation with start/stop times.
+* Add TogglApiKey component.
 
-* Submit single and all schedule entries to Toggle, only submits original datetime for start/stop times.
+* Redux architecture.
 
-* Full Jest/Enzyme test suite.
+* React and Redux Jest/Enzyme specs.
