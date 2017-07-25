@@ -1,8 +1,9 @@
 import { actionCreator } from './actionCreator'
 import { Dispatch } from 'redux'
 import * as TogglClient from 'toggl-api'
-import { ScheduleEntry, scheduleEntryToTogglTimeEntry } from '../reducers/scheduleEntries'
+import { ScheduleEntry } from '../reducers/scheduleEntries'
 import { getTogglClient, formatTogglApiErrorMessage } from '../apiClients/TogglClient'
+import { scheduleEntryToTogglTimeEntry } from '../lib/dataConverters/scheduleEntries'
 
 /**
  * Action types
