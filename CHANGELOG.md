@@ -1,6 +1,6 @@
 # Unreleased
 
-* Example pull request. [Pull request #9999](https://github.com/patferguson/scheduler-for-toggl)
+* Correctly set the absolute date-time for schedule entry start and stop times based on time day boundaries. [Pull request #5](https://github.com/patferguson/scheduler-for-toggl/pull/5)
 
 # Version Preparation
 
