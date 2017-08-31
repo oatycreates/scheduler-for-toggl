@@ -21,6 +21,16 @@ const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
+const autoprefixerOptions = {
+  browsers: [
+    '>1%',
+    'last 4 versions',
+    'Firefox ESR',
+    'not ie < 9', // React doesn't support IE8 anyway
+  ],
+  flexbox: 'no-2009',
+};
+
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -135,6 +145,7 @@ module.exports = {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.(ts|tsx)$/,
+          /\.scss$/,
           /\.css$/,
           /\.json$/,
           /\.bmp$/,
@@ -199,17 +210,41 @@ module.exports = {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
               plugins: () => [
                 require('postcss-flexbugs-fixes'),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
+                autoprefixer(autoprefixerOptions),
               ],
             },
+          },
+        ],
+      },
+      // "sass" loader compiles SASS to CSS.
+      // "postcss" loader applies autoprefixer to our CSS.
+      // "css" loader resolves paths in CSS and adds assets as dependencies.
+      // "style" loader turns CSS into JS modules that inject <style> tags.
+      // In production, we use a plugin to extract that CSS to a file, but
+      // in development "style" loader enables hot editing of CSS.
+      {
+        test: /\.scss$/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('precss'),
+                require('postcss-flexbugs-fixes'),
+                autoprefixer(autoprefixerOptions),
+              ],
+            },
+          },
+          {
+            loader: 'sass-loader'
           },
         ],
       },
@@ -261,6 +296,17 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // Required by Bootstrap v4.0: https://getbootstrap.com/docs/4.0/getting-started/webpack/
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+      // In case you imported plugins individually, you must also require them here:
+      // E.g.
+      // Util: "exports-loader?Util!bootstrap/js/dist/util",
+      // Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

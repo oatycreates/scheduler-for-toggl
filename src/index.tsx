@@ -26,12 +26,11 @@ import * as adapter from 'redux-localstorage/lib/adapters/localStorage'
  * exist on page load.
  */
 import 'jquery'
-import 'bootstrap/dist/js/bootstrap.js'
+import 'bootstrap'
 
 // Site styles
-import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.css'
-import './index.css'
+import './index.scss'
 
 /**
  * Initialise localstorage synchronisation middleware.
