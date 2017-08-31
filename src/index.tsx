@@ -26,6 +26,7 @@ import * as adapter from 'redux-localstorage/lib/adapters/localStorage'
  * exist on page load.
  */
 import 'jquery'
+import 'popper.js'
 import 'bootstrap'
 
 // Site styles
