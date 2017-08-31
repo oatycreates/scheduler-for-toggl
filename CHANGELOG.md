@@ -1,5 +1,7 @@
 # Unreleased
 
+* Upgrade project to Bootstrap v4.0.0-beta. [Pull request #6](https://github.com/patferguson/scheduler-for-toggl/pull/6)
+
 * Correctly set the absolute date-time for schedule entry start and stop times based on time day boundaries. [Pull request #5](https://github.com/patferguson/scheduler-for-toggl/pull/5)
 
 # Version Preparation
