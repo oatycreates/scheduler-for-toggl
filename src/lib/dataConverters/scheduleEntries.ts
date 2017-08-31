@@ -51,11 +51,11 @@ export function scheduleTimesToDateTimes(startTime: moment.Moment, endTime: mome
 export function scheduleEntryToTogglTimeEntry(scheduleEntry: ScheduleEntry): TimeEntry {
   const dateTimes = scheduleTimesToDateTimes(
     moment(scheduleEntry.startTime),
-    moment(scheduleEntry.endTime)
+    moment(scheduleEntry.endTime),
   )
   const timeDuration = moment.duration(
     dateTimes.endDateTime.diff(dateTimes.startDateTime, 'milliseconds', true),
-    'milliseconds'
+    'milliseconds',
   )
   return {
     description: scheduleEntry.scheduleName,
