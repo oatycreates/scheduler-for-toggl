@@ -3,7 +3,7 @@ import * as faker from 'faker'
 import { Button, ButtonStyles } from '../../components/Button'
 import TextInput from '../../components/TextInput'
 
-import './ApiTokenField.css'
+import './ApiTokenField.scss'
 
 export interface ApiTokenFieldProps {
   apiToken?: string,

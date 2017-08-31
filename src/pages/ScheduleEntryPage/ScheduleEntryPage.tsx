@@ -4,7 +4,7 @@ import { SchedulerForTogglAppState } from '../../reducers'
 import ApiTokenEntrySubpage from './subpages/ApiTokenEntrySubpage'
 import ScheduleEntrySubpage from './subpages/ScheduleEntrySubpage'
 
-import './ScheduleEntryPage.css'
+import './ScheduleEntryPage.scss'
 
 /**
  * Prop type definitions

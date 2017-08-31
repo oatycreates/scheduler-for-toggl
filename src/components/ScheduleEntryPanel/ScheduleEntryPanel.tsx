@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import './ScheduleEntryPanel.css'
+import './ScheduleEntryPanel.scss'
 
 export interface ScheduleEntryPanelProps {
   scheduleName?: string,
