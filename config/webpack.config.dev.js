@@ -175,18 +175,22 @@ module.exports = {
       	exclude: /node_modules/,
         include: paths.appSrc,
         use: [
-	  {
-	    loader: 'babel-loader',
-	    options: {
+          {
+            loader: 'babel-loader',
+            options: {
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
               cacheDirectory: true,
             },
-	  },
-	  {
-	    loader: 'ts-loader'
-	  },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              // See: https://github.com/TypeStrong/ts-loader#visualstudioerrorformat-boolean-defaultfalse
+              visualStudioErrorFormat: true,
+            },
+          },
         ],
       },
       // "postcss" loader applies autoprefixer to our CSS.
