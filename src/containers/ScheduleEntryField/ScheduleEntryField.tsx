@@ -6,7 +6,7 @@ import { Button, ButtonStyles } from '../../components/Button'
 import TextInput from '../../components/TextInput'
 import TimePicker from '../../components/TimePicker'
 
-import './ScheduleEntryField.css'
+import './ScheduleEntryField.scss'
 
 export interface ScheduleEntryFieldProps {
   scheduleName?: string,
