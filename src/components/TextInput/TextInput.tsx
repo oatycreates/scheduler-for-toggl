@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import './TextInput.css'
+import './TextInput.scss'
 
 export interface TextInputProps {
   placeholder?: string,
