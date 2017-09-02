@@ -7,6 +7,9 @@ import 'jest-enzyme'
 // Bind jQuery
 global.jQuery = global.$ = require('jquery')
 
+// Bind popper.js
+global.Popper = require('popper.js/dist/umd/popper')
+
 /**
  * Mock global.localStorage with a simplistic implementation.
  * See: https://stackoverflow.com/questions/32911630/how-do-i-deal-with-localstorage-in-jest-tests
