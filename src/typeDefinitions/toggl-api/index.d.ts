@@ -129,8 +129,70 @@ declare module 'toggl-api' {
     }
 
     /**
-    * Classes
-    */
+     * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-project-data
+     */
+    export interface ProjectData {
+      /**
+       * Project ID (integer)
+       */
+      "id": number,
+      /**
+       * Workspace ID (integer)
+       */
+      "wid": number,
+      /**
+       * Client ID (integer)
+       */
+      "cid"?: number,
+      /**
+       * Project name
+       */
+      "name": string,
+      /**
+       * Whether the project is billable to the client
+       */
+      "billable"?: boolean,
+      /**
+       * Whether project is accessible for only project users or for all workspace users (by default true)
+       */
+      "is_private": boolean,
+      /**
+       * Whether the project is archived or not (by default true)
+       */
+      "active": boolean,
+      /**
+       * For responses, indicates the time the object was last updated, ISO 8601 date and time.
+       */
+      "at"?: string,
+      /**
+       * Whether the project can be used as a template
+       */
+      "template"?: boolean,
+      /**
+       * ID of the template project used on current project's creation
+       */
+      "template_id"?: number,
+      /**
+       * ID of the colour selected for the project, e.g. "5"
+       */
+      "color": string
+      /**
+       * Whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours' (default false, premium functionality)
+       */
+      "auto_estimates"?: boolean,
+      /**
+       * If auto_estimates is true then the sum of task estimations is returned, otherwise user inserted hours (integer, premium functionality)
+       */
+      "estimated_hours"?: number,
+      /**
+       * Hourly rate of the project (float, premium functionality)
+       */
+      "rate"?: number,
+    }
+
+    /**
+     * Classes
+     */
 
     export class APIError {
       /**
