@@ -8,7 +8,7 @@ declare module 'toggl-api' {
   class TogglClient {
     constructor(options: TogglClient.TogglClientOptions)
 
-    getUserData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserDataResponse) => void): void
+    getUserData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
     createTimeEntry(data: TogglClient.TimeEntry, callback: (error: TogglClient.APIError, timeEntry: TogglClient.TimeEntry) => void): void
   }
 
@@ -26,10 +26,10 @@ declare module 'toggl-api' {
      */
 
     /**
-     * Properties within the 'data' field are used.
+     * Properties within the 'data' field in the API documentation are used.
      * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
      */
-    export interface UserDataResponse {
+    export interface UserData {
       /**
        * User ID
        */
@@ -57,25 +57,60 @@ declare module 'toggl-api' {
        * Date format string (for display?)
        */
       "date_format": string,
+      /**
+       * Whether start and stop time are saved on time entry
+       */
       "store_start_and_stop_time": boolean,
       /**
-       * Day index considered the start of the week?
+       * Day index considered the start of the week (integer 0-6, Sunday=0)
        */
       "beginning_of_week": number,
+      /**
+       * User's language
+       */
       "language": string,
+      /**
+       * URL with the user's profile picture
+       */
       "image_url": string,
+      /**
+       * Should a piechart be shown on the sidebar
+       */
       "sidebar_piechart": boolean,
       /**
        * For responses, indicates the time the object was last updated, ISO 8601 date and time format.
        */
-      "at": string,
+      "at"?: string,
       "retention": number,
       "record_timeline": boolean,
       "render_timeline": boolean,
       "timeline_enabled": boolean,
       "timeline_experiment": boolean,
+      /**
+       * An object with toggl blog post title and link
+       */
       "new_blog_post": {},
       "invitation": {},
+      /**
+       * Toggl can send newsletters over e-mail to the user
+       */
+      "send_product_emails": boolean,
+      /**
+       * If user receives weekly report
+       */
+      "send_weekly_report": boolean,
+      /**
+       * Email user about long-running (more than 8 hours) tasks
+       */
+      "send_timer_notifications": boolean,
+      /**
+       * Whether Google sign-in is enabled
+       */
+      "openid_enabled": boolean,
+      /**
+       * Timezone user has set on the "My profile" page [IANA TZ timezones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+       */
+      "timezone": string,
     }
 
     /**
