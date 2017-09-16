@@ -10,6 +10,8 @@ declare module 'toggl-api' {
 
     getUserData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
     createTimeEntry(data: TogglClient.TimeEntry, callback: (error: TogglClient.APIError, timeEntry: TogglClient.TimeEntry) => void): void
+    getWorkspaceProjects(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
+    getProjectData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
   }
 
   namespace TogglClient {
@@ -224,6 +226,11 @@ declare module 'toggl-api' {
        */
       "rate"?: number,
     }
+
+    /**
+     * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-projects
+     */
+    export type WorkspaceProjects = Array<ProjectData>
 
     /**
      * Classes
