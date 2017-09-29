@@ -6,6 +6,8 @@ Web tool to streamline adding regular schedule entries to the Toggl time trackin
 
 Use this tool online at: [https://scheduler-for-toggl.ferguson.cloud/](https://scheduler-for-toggl.ferguson.cloud/) <- NOTE 2017/09/29 - CORS for the Toggl API has not yet been configured for this URL so the site does not work at this time.
 
+Created by [@DevPatF](https://twitter.com/devpatf).
+
 ## Running the project
 
 In the project directory, run:
