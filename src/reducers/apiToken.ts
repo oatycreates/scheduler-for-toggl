@@ -1,4 +1,5 @@
-import { Action, isType } from '../actions/actionCreator'
+import { isType } from '../actions/actionCreator'
+import { Action as ReduxAction } from 'redux'
 
 /**
  * Action creators
@@ -38,7 +39,7 @@ export const initialApiTokenState = Object.freeze({
  */
 export function apiToken(
     apiTokenState: ApiTokenState = initialApiTokenState,
-    action: Action<{}>): ApiTokenState {
+    action: ReduxAction): ApiTokenState {
   if (isType(action, changeApiToken)) {
     return Object.assign({}, apiTokenState, {
       apiToken: action.payload.apiToken,

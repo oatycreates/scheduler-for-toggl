@@ -1,4 +1,5 @@
-import { Action, isType } from '../actions/actionCreator'
+import { isType } from '../actions/actionCreator'
+import { Action as ReduxAction } from 'redux'
 
 /**
  * Action creators
@@ -47,7 +48,7 @@ export const initialScheduleEntriesState = {
  */
 export function scheduleEntries(
     scheduleEntriesState: ScheduleEntriesState = initialScheduleEntriesState,
-    action: Action<{}>): ScheduleEntriesState {
+    action: ReduxAction): ScheduleEntriesState {
   if (isType(action, addScheduleEntry)) {
     // Append the new schedule entry to the end of existing entries
     return Object.assign({}, scheduleEntriesState, {
