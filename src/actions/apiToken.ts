@@ -37,7 +37,7 @@ export function submitApiToken(apiToken: string = '') {
 
     // Verify that the API token worked by attempting to fetch the user data
     const togglClient = getTogglClient()
-    togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.UserData) => {
+    togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.User) => {
       if (err) {
         // An API error was raised
         dispatch(validateApiTokenError({
