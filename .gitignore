@@ -9,9 +9,6 @@
 # production
 /build
 
-# IDE project files/folders
-.vscode
-
 # misc
 .DS_Store
 .env.local
