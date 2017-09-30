@@ -6,6 +6,7 @@ import { combineReducers } from 'redux'
 
 import { apiToken, ApiTokenState, initialApiTokenState } from './apiToken'
 import { scheduleEntries, ScheduleEntriesState, initialScheduleEntriesState } from './scheduleEntries'
+import { projects, ProjectsState, initialProjectsState } from './projects'
 
 /**
  * State tree typing
@@ -15,6 +16,7 @@ import { scheduleEntries, ScheduleEntriesState, initialScheduleEntriesState } fr
 export interface SchedulerForTogglAppState {
   apiToken: ApiTokenState,
   scheduleEntries: ScheduleEntriesState,
+  projects: ProjectsState,
 }
 
 /**
@@ -24,12 +26,14 @@ export interface SchedulerForTogglAppState {
 export const initialSchedulerForTogglAppState: SchedulerForTogglAppState = {
   apiToken: initialApiTokenState,
   scheduleEntries: initialScheduleEntriesState,
+  projects: initialProjectsState,
 }
 
 // This aggregates all included reducer modules into a single reducer for the store
 const schedulerForTogglApp = combineReducers<SchedulerForTogglAppState>({
   apiToken,
   scheduleEntries,
+  projects,
 })
 
 export default schedulerForTogglApp

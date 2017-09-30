@@ -8,10 +8,16 @@ declare module 'toggl-api' {
   class TogglClient {
     constructor(options: TogglClient.TogglClientOptions)
 
-    getUserData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
+    getUserData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.User) => void): void
     createTimeEntry(data: TogglClient.TimeEntry, callback: (error: TogglClient.APIError, timeEntry: TogglClient.TimeEntry) => void): void
-    getWorkspaceProjects(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
-    getProjectData(options: {}, callback: (error: TogglClient.APIError, userData: TogglClient.UserData) => void): void
+    /**
+     * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-projects
+     * @param wid Workspace ID
+     * @param options Additional request options.
+     * @param callback Callback to handle the returned data or errors.
+     */
+    getWorkspaceProjects(wid: number, options: {}, callback: (error: TogglClient.APIError, projects: Array<TogglClient.Project>) => void): void
+    getProjectData(projectId: number, callback: (error: TogglClient.APIError, project: TogglClient.Project) => void): void
   }
 
   namespace TogglClient {
@@ -31,7 +37,7 @@ declare module 'toggl-api' {
      * Properties within the 'data' field in the API documentation are used.
      * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
      */
-    export interface UserData {
+    export interface User {
       /**
        * User ID
        */
@@ -168,11 +174,11 @@ declare module 'toggl-api' {
     /**
      * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-project-data
      */
-    export interface ProjectData {
+    export interface Project {
       /**
        * Project ID (integer)
        */
-      "id": number,
+      "id"?: number,
       /**
        * Workspace ID (integer)
        */
@@ -192,11 +198,11 @@ declare module 'toggl-api' {
       /**
        * Whether project is accessible for only project users or for all workspace users (by default true)
        */
-      "is_private": boolean,
+      "is_private"?: boolean,
       /**
        * Whether the project is archived or not (by default true)
        */
-      "active": boolean,
+      "active"?: boolean,
       /**
        * For responses, indicates the time the object was last updated, ISO 8601 date and time.
        */
@@ -226,11 +232,6 @@ declare module 'toggl-api' {
        */
       "rate"?: number,
     }
-
-    /**
-     * See: https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-projects
-     */
-    export type WorkspaceProjects = Array<ProjectData>
 
     /**
      * Classes
