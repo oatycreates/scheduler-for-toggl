@@ -61,6 +61,7 @@ export function scheduleEntryToTogglTimeEntry(scheduleEntry: ScheduleEntry): Tim
     description: scheduleEntry.scheduleName,
     start: dateTimes.startDateTime.toISOString(),
     stop: dateTimes.endDateTime.toISOString(),
+    pid: scheduleEntry.project ? scheduleEntry.project.id : undefined,
     duration: timeDuration.asSeconds(),
   }
 }
