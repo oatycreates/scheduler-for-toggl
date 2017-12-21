@@ -12,13 +12,13 @@ import {
   validateApiTokenComplete,
   validateApiTokenError,
   submitApiToken,
-} from './apiToken'
+} from './user'
 
 // Initialise a mocked Redux store with relevant middleware
 const middlewares = [thunk]
 const mockStore = configureStore<Partial<SchedulerForTogglAppState>>(middlewares)
 
-describe('apiToken actions', () => {
+describe('user actions', () => {
   let store: IStore<Partial<SchedulerForTogglAppState>>
   beforeEach(() => {
     // NOTE: 2017/06/10 - It seems that if an initial state object is imported
@@ -29,11 +29,12 @@ describe('apiToken actions', () => {
 
     // Mock the store with the intial state
     store = mockStore({
-      apiToken: {
+      user: {
         apiToken: '',
         error: '',
-        isValid: false,
-        isValidating: false,
+        user: null,
+        isApiTokenValid: false,
+        isApiTokenValidating: false,
       },
     })
   })
@@ -46,7 +47,12 @@ describe('apiToken actions', () => {
       it('dispatches the validateApiTokenComplete action', () => {
         const expectedActions = [
           validateApiToken({}),
-          validateApiTokenComplete({ isValid: true }),
+          validateApiTokenComplete({
+            isApiTokenValid: true, user: {
+              id: 0,
+              defaultWorkspaceId: 0,
+            },
+          }),
         ]
 
         store.dispatch(submitApiToken(validApiToken))
