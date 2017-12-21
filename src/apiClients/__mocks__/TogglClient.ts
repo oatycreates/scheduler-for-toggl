@@ -18,8 +18,8 @@ class TogglClient {
     if (this.options.apiToken.length > 0) {
       // API key present, pretend that the response was successful
       callback(null, {
-        id: 0,
-        defaultWorkspaceId: 0,
+        id: 555,
+        default_wid: 333,
       })
     } else {
       // No API key present, pretend that the response was not successful

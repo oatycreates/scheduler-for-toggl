@@ -48,9 +48,10 @@ describe('user actions', () => {
         const expectedActions = [
           validateApiToken({}),
           validateApiTokenComplete({
-            isApiTokenValid: true, user: {
-              id: 0,
-              defaultWorkspaceId: 0,
+            isApiTokenValid: true,
+            user: {
+              id: 555,
+              defaultWorkspaceId: 333,
             },
           }),
         ]
