@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment'
 import { Project } from '../../reducers/projects'
 
-import './ScheduleEntryPanel.css'
+import './ScheduleEntryPanel.scss'
 
 export interface ScheduleEntryPanelProps {
   scheduleName?: string,

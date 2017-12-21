@@ -8,7 +8,7 @@ import TextInput from '../../components/TextInput'
 import TimePicker from '../../components/TimePicker'
 import ProjectDropdown from '../ProjectDropdown'
 
-import './ScheduleEntryField.css'
+import './ScheduleEntryField.scss'
 
 export interface ScheduleEntryFieldProps {
   scheduleName?: string,

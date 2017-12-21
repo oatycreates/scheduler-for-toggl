@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment'
 import Timepicker, { TimepickerConfig, TimepickerTime } from 'react-timekeeper'
 
-import './TimePicker.css'
+import './TimePicker.scss'
 
 export interface TimePickerProps {
   time?: moment.Moment,
