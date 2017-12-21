@@ -27,9 +27,9 @@ describe('ScheduleEntryPage', () => {
   describe('when a valid API token has been entered', () => {
     let container: ReactWrapper<ScheduleEntryPageStateProps, {}>
     beforeEach(() => {
-      // Initialse store state
+      // Initialise store state
       const store = buildReduxStore(Object.assign({}, initialSchedulerForTogglAppState, {
-        apiToken: {
+        user: {
           apiToken: faker.random.alphaNumeric(16),
           isValid: true,
         },

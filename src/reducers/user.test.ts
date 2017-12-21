@@ -42,8 +42,8 @@ describe('user reducer', () => {
 
   describe('validateApiTokenComplete action', () => {
     const userData = {
-      id: 0,
-      defaultWorkspaceId: 0,
+      id: 555,
+      defaultWorkspaceId: 333,
     } as User
 
     it('accepts the isApiTokenValid value', () => {
