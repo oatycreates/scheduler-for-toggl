@@ -1,5 +1,7 @@
 // NOTE: 2017-12-22 Snapshotted to fix React type errors from: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-select/index.d.ts
 
+declare module 'react-select' {
+
 // Type definitions for react-select 1.0
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
@@ -16,13 +18,13 @@
 // TypeScript Version: 2.3
 import * as React from 'react';
 
-export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
+export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>, {}> {
     focus(): void;
 }
 // Other components
-export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
-export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
-export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>> { }
+export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>, {}> { }
+export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>, {}> { }
+export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>, {}> { }
 
 export type HandlerRendererResult = JSX.Element | null | false;
 
@@ -359,7 +361,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType<TValue>;
+    optionComponent?: React.StatelessComponent<TValue>;
     /**
      * function which returns a custom way to render the options in the menu
      */
@@ -424,7 +426,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentType<TValue>;
+    valueComponent?: React.StatelessComponent<TValue>;
 
     /**
      *  optional style to apply to the component wrapper
@@ -534,4 +536,6 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
      *  message to display while options are loading
      */
     searchingText?: string;
+}
+
 }
