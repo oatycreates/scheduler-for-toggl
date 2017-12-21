@@ -17,7 +17,10 @@ class TogglClient {
   ) {
     if (this.options.apiToken.length > 0) {
       // API key present, pretend that the response was successful
-      callback(null, { id: faker.random.number({ min: 1 }) })
+      callback(null, {
+        id: 0,
+        defaultWorkspaceId: 0,
+      })
     } else {
       // No API key present, pretend that the response was not successful
       callback({code: 400, errors: ['Invalid API key']}, null)
