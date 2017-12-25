@@ -1133,8 +1133,8 @@ bootstrap@^4.0.0-beta:
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.2.tgz#4d67d2aa2219f062cd90bc1247e6747b9e8fd051"
 
 bowser@^1.0.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.9.0.tgz#c5015128dcf155b4e3d11d1ab46b7a4b6ee695b8"
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.9.1.tgz#f86ef2132e8cb10b3eb6ea5af018758c587020db"
 
 boxen@^0.6.0:
   version "0.6.0"
@@ -2201,8 +2201,8 @@ es-to-primitive@^1.1.1:
     is-symbol "^1.0.1"
 
 es6-promise@^4.0.5:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.1.tgz#8811e90915d9a0dba36274f0b242dbda78f9c92a"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.2.tgz#f722d7769af88bd33bc13ec6605e1f92966b82d9"
 
 escape-html@~1.0.3:
   version "1.0.3"
@@ -2843,6 +2843,10 @@ has-flag@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-2.0.0.tgz#e8207af1cc7b30d446cc70b734b5e8be18f88d51"
 
+has-symbols@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
+
 has-unicode@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/has-unicode/-/has-unicode-2.0.1.tgz#e0e6fe6a28cf51138855e086d1691e771de2a8b9"
@@ -2956,8 +2960,8 @@ html-entities@1.2.1, html-entities@^1.2.0:
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.2.1.tgz#0df29351f0721163515dfb9e5543e5f6eed5162f"
 
 html-minifier@^3.2.3:
-  version "3.5.7"
-  resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.5.7.tgz#511e69bb5a8e7677d1012ebe03819aa02ca06208"
+  version "3.5.8"
+  resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.5.8.tgz#5ccdb1f73a0d654e6090147511f6e6b2ee312700"
   dependencies:
     camel-case "3.0.x"
     clean-css "4.1.x"
@@ -2966,7 +2970,7 @@ html-minifier@^3.2.3:
     ncname "1.0.x"
     param-case "2.1.x"
     relateurl "0.2.x"
-    uglify-js "3.2.x"
+    uglify-js "3.3.x"
 
 html-webpack-plugin@2.28.0:
   version "2.28.0"
@@ -4515,7 +4519,7 @@ object-is@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/object-is/-/object-is-1.0.1.tgz#0aa60ec9989a0b3ed795cf4d06f62cf1ad6539b6"
 
-object-keys@^1.0.10, object-keys@^1.0.8:
+object-keys@^1.0.11, object-keys@^1.0.8:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
 
@@ -4524,12 +4528,13 @@ object-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/object-values/-/object-values-1.0.0.tgz#72af839630119e5b98c3b02bb8c27e3237158105"
 
 object.assign@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/object.assign/-/object.assign-4.0.4.tgz#b1c9cc044ef1b9fe63606fc141abbb32e14730cc"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/object.assign/-/object.assign-4.1.0.tgz#968bf1100d7956bb3ca086f006f846b3bc4008da"
   dependencies:
     define-properties "^1.1.2"
-    function-bind "^1.1.0"
-    object-keys "^1.0.10"
+    function-bind "^1.1.1"
+    has-symbols "^1.0.0"
+    object-keys "^1.0.11"
 
 object.entries@^1.0.4:
   version "1.0.4"
@@ -5666,8 +5671,10 @@ redux-localstorage@^1.0.0-rc4:
   resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-1.0.0-rc5.tgz#7067bc4cb0b03b5c791025ac33dde6175d50d5d1"
 
 redux-mock-store@^1.2.3:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.3.0.tgz#6edfef0d2332f20576381069d6d889a6d0a4451c"
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.4.0.tgz#cdc87650f5759f293588fecc9cac2b057d95190d"
+  dependencies:
+    lodash.isplainobject "^4.0.6"
 
 redux-thunk@^2.2.0:
   version "2.2.0"
@@ -6609,8 +6616,8 @@ tslint@^5.2.0:
     tsutils "^2.12.1"
 
 tsutils@^2.12.1, tsutils@^2.8.0:
-  version "2.13.1"
-  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.13.1.tgz#d6d1cc0f7c04cf9fb3b28a292973cffb9cfbe09a"
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.14.0.tgz#bc5291622aa2448c1baffc544bcc14ecfa528fb7"
   dependencies:
     tslib "^1.8.0"
 
@@ -6653,9 +6660,9 @@ ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
-uglify-js@3.2.x:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.2.2.tgz#870e4b34ed733d179284f9998efd3293f7fd73f6"
+uglify-js@3.3.x:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.1.tgz#bed6f6a2e2b3f1a73dfe000f04d47ee540dd080b"
   dependencies:
     commander "~2.12.1"
     source-map "~0.6.1"
