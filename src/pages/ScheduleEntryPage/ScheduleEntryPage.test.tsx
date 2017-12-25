@@ -31,9 +31,9 @@ describe('ScheduleEntryPage', () => {
       const store = buildReduxStore(Object.assign({}, initialSchedulerForTogglAppState, {
         user: {
           apiToken: faker.random.alphaNumeric(16),
-          isValid: true,
+          isApiTokenValid: true,
         },
-      }))
+      } as Partial<SchedulerForTogglAppState>))
       container = mount(<Provider store={store}><ScheduleEntryPage /></Provider>)
     })
 
