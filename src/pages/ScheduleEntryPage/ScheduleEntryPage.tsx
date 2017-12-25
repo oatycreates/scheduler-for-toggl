@@ -41,10 +41,10 @@ class ScheduleEntryPage extends React.Component<ScheduleEntryPageStateProps, {}>
  */
 const mapStateToProps = (state: SchedulerForTogglAppState): ScheduleEntryPageStateProps => {
   // Extract the desired properties out of the state tree
-  const { apiToken } = state
+  const { user } = state
   return {
-    apiToken: apiToken.apiToken,
-    isApiTokenValid: apiToken.isValid,
+    apiToken: user.apiToken,
+    isApiTokenValid: user.isApiTokenValid,
   }
 }
 
