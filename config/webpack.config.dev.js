@@ -187,8 +187,6 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              // See: https://github.com/TypeStrong/ts-loader#visualstudioerrorformat-boolean-defaultfalse
-              visualStudioErrorFormat: true,
             },
           },
         ],
