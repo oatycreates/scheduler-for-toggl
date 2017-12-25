@@ -37,8 +37,7 @@ describe('ScheduleEntryList container', () => {
     })
 
     it('displays the schedule entry', () => {
-      expect(container.find('.ScheduleEntryPanel')).toHaveLength(1)
-      expect(container.find('.ScheduleEntryPanel').text()).toContain(scheduleName)
+      expect(container.text()).toContain(scheduleName)
     })
   })
 })
