@@ -1,4 +1,4 @@
-import {Button, ButtonStyles} from './Button'
+import { Button, ButtonStyles } from './Button'
 
 export {
   Button,
