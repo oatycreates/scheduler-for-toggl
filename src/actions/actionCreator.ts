@@ -37,10 +37,10 @@ export function actionCreator<P>(type: string): ActionCreator<P> {
  * Checks whether the input action matches the input type name. If so, it will
  * be typecast to that action.
  * @type P Payload data type signature.
- * @param action Action to test.
- * @param actionCreator Action creator matching the desired type to test for.
+ * @param actionToTest Action to test.
+ * @param actionCreatorToTest Action creator matching the desired type to test for.
  */
 export function isType<P>(
-    action: ReduxAction, actionCreator: ActionCreator<P>): action is Action<P> {
-  return action.type === actionCreator.type
+    actionToTest: ReduxAction, actionCreatorToTest: ActionCreator<P>): actionToTest is Action<P> {
+  return actionToTest.type === actionCreatorToTest.type
 }

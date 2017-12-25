@@ -104,10 +104,10 @@ export function scheduleEntries(
  * entries are deleted off the end, IDs may be recycled. Due to the program
  * being all client side at this time and the IDs integrity not being essential
  * to maintain state, this is acceptable for now.
- * @param scheduleEntries List of schedule entries to find the maximum ID for.
+ * @param scheduleEntriesList List of schedule entries to find the maximum ID for.
  */
-function getMaxScheduleEntryId(scheduleEntries: ReadonlyArray<ScheduleEntry>) {
-  return scheduleEntries.reduce(
+function getMaxScheduleEntryId(scheduleEntriesList: ReadonlyArray<ScheduleEntry>) {
+  return scheduleEntriesList.reduce(
     (maxId, scheduleEntry) => Math.max(typeof(scheduleEntry.id) !== 'undefined' ? scheduleEntry.id : -1, maxId),
     -1,
   )

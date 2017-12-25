@@ -16,7 +16,7 @@ describe('ScheduleEntryPage', () => {
     })
 
     it('renders without crashing', () => {
-      expect(container.find('.ScheduleEntryPage')).toHaveLength(1)
+      expect(container.closest('.ScheduleEntryPage')).toHaveLength(1)
     })
 
     it('displays the ApiTokenField component', () => {
