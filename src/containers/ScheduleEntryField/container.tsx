@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment'
 import { connect } from 'react-redux'
 import { addScheduleEntry } from '../../actions/scheduleEntries'
+import { Project } from '../../reducers/projects'
 import ScheduleEntryField from './ScheduleEntryField'
 
 /**
@@ -9,7 +10,7 @@ import ScheduleEntryField from './ScheduleEntryField'
  */
 
 export interface ScheduleEntryFieldContainerStateDispatches {
-  onScheduleEntryCreate?: (scheduleName: string, startTime: string, endTime: string) => void,
+  onScheduleEntryCreate?: (scheduleName: string, startTime: string, endTime: string, project: Project | null) => void,
 }
 
 export interface ScheduleEntryFieldContainerStateProps {
@@ -24,6 +25,7 @@ export interface ScheduleEntryFieldContainerState {
   scheduleName: string,
   startTime: moment.Moment,
   endTime: moment.Moment,
+  project: Project | null,
 }
 
 /**
@@ -40,12 +42,14 @@ class ScheduleEntryFieldContainer extends
       scheduleName: '',
       startTime: moment(),
       endTime: moment().add(5, 'minutes'),
+      project: null,
     }
 
     // Bind context for handlers
     this.onScheduleNameChange = this.onScheduleNameChange.bind(this)
     this.onStartTimeChange = this.onStartTimeChange.bind(this)
     this.onEndTimeChange = this.onEndTimeChange.bind(this)
+    this.onProjectChange = this.onProjectChange.bind(this)
     this.onScheduleEntryCreateClicked = this.onScheduleEntryCreateClicked.bind(this)
   }
 
@@ -67,6 +71,12 @@ class ScheduleEntryFieldContainer extends
     })
   }
 
+  onProjectChange(project: Project) {
+    this.setState({
+      project: project,
+    })
+  }
+
   onScheduleEntryCreateClicked() {
     if (this.props.onScheduleEntryCreate) {
       this.props.onScheduleEntryCreate(
@@ -74,6 +84,7 @@ class ScheduleEntryFieldContainer extends
         // ISO string formatted Moment times
         this.state.startTime.format(),
         this.state.endTime.format(),
+        this.state.project,
       )
     }
   }
@@ -84,9 +95,11 @@ class ScheduleEntryFieldContainer extends
         scheduleName={this.state.scheduleName}
         startTime={this.state.startTime}
         endTime={this.state.endTime}
+        project={this.state.project}
         onScheduleNameChange={this.onScheduleNameChange}
         onStartTimeChange={this.onStartTimeChange}
         onEndTimeChange={this.onEndTimeChange}
+        onProjectChange={this.onProjectChange}
         onScheduleEntryCreate={this.onScheduleEntryCreateClicked}
       />
     )
@@ -103,12 +116,13 @@ class ScheduleEntryFieldContainer extends
  */
 const mapDispatchToProps = (dispatch: Function): ScheduleEntryFieldContainerStateDispatches => {
   return {
-    onScheduleEntryCreate: (scheduleName: string, startTime: string, endTime: string) => {
+    onScheduleEntryCreate: (scheduleName: string, startTime: string, endTime: string, project: Project) => {
       dispatch(addScheduleEntry({
         scheduleEntry: {
           scheduleName,
           startTime,
           endTime,
+          project,
         },
       }))
     },

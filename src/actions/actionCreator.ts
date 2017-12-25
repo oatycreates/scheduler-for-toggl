@@ -1,7 +1,9 @@
+import { Action as ReduxAction } from 'redux'
+
 /**
  * Describes an action that may contain a particular pre-specified payload shape.
  */
-export interface Action<Payload> {
+export interface Action<Payload> extends ReduxAction {
   type: string,
   payload: Payload,
 }
@@ -39,6 +41,6 @@ export function actionCreator<P>(type: string): ActionCreator<P> {
  * @param actionCreator Action creator matching the desired type to test for.
  */
 export function isType<P>(
-    action: Action<{}>, actionCreator: ActionCreator<P>): action is Action<P> {
+    action: ReduxAction, actionCreator: ActionCreator<P>): action is Action<P> {
   return action.type === actionCreator.type
 }

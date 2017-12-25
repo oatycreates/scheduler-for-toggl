@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { SchedulerForTogglAppState } from '../../reducers'
-import { changeApiToken, submitApiToken } from '../../actions/apiToken'
+import { changeApiToken, submitApiToken } from '../../actions/user'
 import ApiTokenField from './ApiTokenField'
 
 /**
@@ -64,11 +64,11 @@ class ApiTokenFieldContainer extends React.Component<ApiTokenFieldContainerProps
  */
 const mapStateToProps = (state: SchedulerForTogglAppState): ApiTokenFieldContainerStateProps => {
   // Extract the desired properties out of the state tree
-  const { apiToken } = state
+  const { user } = state
   return {
-    apiToken: apiToken.apiToken,
-    isValidating: apiToken.isValidating,
-    error: apiToken.error,
+    apiToken: user.apiToken,
+    isValidating: user.isApiTokenValidating,
+    error: user.error,
   }
 }
 
