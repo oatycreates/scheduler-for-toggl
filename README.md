@@ -39,6 +39,28 @@ The build is minified and the filenames include the hashes.
 
 The `build/` folder may be used to display the compiled site with GitHub Pages.
 
+#### Submitting updated builds
+
+First time setup:
+
+Navigate to the `build/` folder.
+
+Run `git submodule update --remote` to update the `build/` folder code to latest.
+
+Run `git checkout master` to ensure the correct branch is used.
+
+**Subsequent builds**
+
+Navigate to the base project folder, ensure the `master` branch is checked out and updated.
+
+Run `rm -rf build/static/` to ensure the old assets are deleted, as each file will have a hash appended to the name.
+
+Run `yarn build` from the base project folder.
+
+Run `cd build/ && git add . && cd ..` to stage the new built file changes.
+
+Run `git push --recurse-submodules=check` to push the submodule changes, this will also push any local commits.
+
 ## Acknowledgements
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). For more information and for instructions on performing common create-react-app tasks see the following guide: [Create React App Template README.md](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
