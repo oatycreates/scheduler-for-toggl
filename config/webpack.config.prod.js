@@ -43,6 +43,16 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 
+const autoprefixerOptions = {
+  browsers: [
+    '>1%',
+    'last 4 versions',
+    'Firefox ESR',
+    'not ie < 9', // React doesn't support IE8 anyway
+  ],
+  flexbox: 'no-2009',
+};
+
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
@@ -132,6 +142,7 @@ module.exports = {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.(ts|tsx)$/,
+          /\.scss$/,
           /\.css$/,
           /\.json$/,
           /\.bmp$/,
@@ -207,17 +218,58 @@ module.exports = {
                     ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
                     plugins: () => [
                       require('postcss-flexbugs-fixes'),
-                      autoprefixer({
-                        browsers: [
-                          '>1%',
-                          'last 4 versions',
-                          'Firefox ESR',
-                          'not ie < 9', // React doesn't support IE8 anyway
-                        ],
-                        flexbox: 'no-2009',
-                      }),
+                      autoprefixer(autoprefixerOptions),
                     ],
                   },
+                },
+              ],
+            },
+            extractTextPluginOptions
+          )
+        ),
+        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+      },
+      // The notation here is somewhat confusing.
+      // "sass" loader compiles SASS to CSS.
+      // "postcss" loader applies autoprefixer to our CSS.
+      // "css" loader resolves paths in CSS and adds assets as dependencies.
+      // "style" loader normally turns CSS into JS modules injecting <style>,
+      // but unlike in development configuration, we do something different.
+      // `ExtractTextPlugin` first applies the "postcss" and "css" loaders
+      // (second argument), then grabs the result CSS and puts it into a
+      // separate file in our build process. This way we actually ship
+      // a single CSS file in production instead of JS code injecting <style>
+      // tags. If you use code splitting, however, any async bundles will still
+      // use the "style" loader inside the async code so CSS from them won't be
+      // in the main CSS file.
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(
+          Object.assign(
+            {
+              fallback: require.resolve('style-loader'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    importLoaders: 1,
+                    minimize: true,
+                    sourceMap: true,
+                  },
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                    plugins: () => [
+                      require('precss'),
+                      require('postcss-flexbugs-fixes'),
+                      autoprefixer(autoprefixerOptions),
+                    ],
+                  },
+                },
+                {
+                  loader: 'sass-loader'
                 },
               ],
             },
@@ -236,6 +288,15 @@ module.exports = {
           {
             loader: 'expose-loader',
             options: '$'
+          }
+        ]
+      },
+      {
+        test: require.resolve('popper.js'),
+        use: [
+          {
+            loader: 'expose-loader',
+            options: 'Popper'
           }
         ]
       }
@@ -325,6 +386,17 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // Required by Bootstrap v4.0: https://getbootstrap.com/docs/4.0/getting-started/webpack/
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+      // In case you imported plugins individually, you must also require them here:
+      // E.g.
+      // Util: "exports-loader?Util!bootstrap/js/dist/util",
+      // Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

@@ -4,7 +4,7 @@ import { SchedulerForTogglAppState } from '../../reducers'
 import ApiTokenEntrySubpage from './subpages/ApiTokenEntrySubpage'
 import ScheduleEntrySubpage from './subpages/ScheduleEntrySubpage'
 
-import './ScheduleEntryPage.css'
+import './ScheduleEntryPage.scss'
 
 /**
  * Prop type definitions
@@ -41,10 +41,10 @@ class ScheduleEntryPage extends React.Component<ScheduleEntryPageStateProps, {}>
  */
 const mapStateToProps = (state: SchedulerForTogglAppState): ScheduleEntryPageStateProps => {
   // Extract the desired properties out of the state tree
-  const { apiToken } = state
+  const { user } = state
   return {
-    apiToken: apiToken.apiToken,
-    isApiTokenValid: apiToken.isValid,
+    apiToken: user.apiToken,
+    isApiTokenValid: user.isApiTokenValid,
   }
 }
 

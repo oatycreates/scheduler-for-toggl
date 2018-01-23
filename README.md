@@ -4,7 +4,9 @@
 
 Web tool to streamline adding regular schedule entries to the Toggl time tracking service. Built in React and Redux.
 
-Use this tool online at: [https://scheduler-for-toggl.ferguson.cloud/](https://scheduler-for-toggl.ferguson.cloud/)
+Use this tool online at: [https://scheduler-for-toggl.ferguson.cloud/](https://scheduler-for-toggl.ferguson.cloud/) <- NOTE 2017/09/29 - CORS for the Toggl API has not yet been configured for this URL so the site does not work at this time.
+
+Created by [@DevPatF](https://twitter.com/devpatf).
 
 ## Running the project
 
@@ -28,12 +30,36 @@ In the project directory, run:
 
 ### `yarn run build`
 
-Builds the app for production to the `docs/` folder.<br>
+Ensure the `build/` folder is correctly initialised first-time by running `git submodule init` and `git submodule update`. See: [Git Submodules docs](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+
+Builds the app for production to the `build/` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.
 
-The `docs/` folder may be used to display the compiled site with GitHub Pages.
+The `build/` folder may be used to display the compiled site with GitHub Pages.
+
+#### Submitting updated builds
+
+First time setup:
+
+Navigate to the `build/` folder.
+
+Run `git submodule update --remote` to update the `build/` folder code to latest.
+
+Run `git checkout master` to ensure the correct branch is used.
+
+**Subsequent builds**
+
+Navigate to the base project folder, ensure the `master` branch is checked out and updated.
+
+Run `rm -rf build/static/` to ensure the old assets are deleted, as each file will have a hash appended to the name.
+
+Run `yarn build` from the base project folder.
+
+Run `cd build/ && git add . && cd ..` to stage the new built file changes.
+
+Run `git push --recurse-submodules=check` to push the submodule changes, this will also push any local commits.
 
 ## Acknowledgements
 

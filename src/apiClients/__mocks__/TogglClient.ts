@@ -1,5 +1,6 @@
 import * as faker from 'faker'
-import { APIError, TimeEntry } from 'toggl-api'
+import { APIError, TimeEntry, Project } from 'toggl-api'
+import { generateRandomProject } from '../../lib/testHelpers/project'
 
 class TogglClient {
   options = {
@@ -11,11 +12,15 @@ class TogglClient {
   }
 
   getUserData(
-      options: {} | null,
-      callback: (error: {} | null, userData: {} | null) => {}) {
+    options: {} | null,
+    callback: (error: {} | null, userData: {} | null) => void,
+  ) {
     if (this.options.apiToken.length > 0) {
       // API key present, pretend that the response was successful
-      callback(null, { id: faker.random.number({ min: 1 }) })
+      callback(null, {
+        id: 555,
+        default_wid: 333,
+      })
     } else {
       // No API key present, pretend that the response was not successful
       callback({code: 400, errors: ['Invalid API key']}, null)
@@ -24,7 +29,8 @@ class TogglClient {
 
   createTimeEntry(
     data: TimeEntry,
-    callback: (err: {} | null, timeEntry: TimeEntry | null) => {}) {
+    callback: (err: {} | null, timeEntry: TimeEntry | null) => void,
+  ) {
     // Always pretend that the submit succeeded
     callback(null, {
       description: data.description,
@@ -32,6 +38,29 @@ class TogglClient {
       stop: data.stop,
       duration: data.duration,
     } as TimeEntry)
+  }
+
+  getWorkspaceProjects(
+    wid: number,
+    options: {},
+    callback: (error: {} | null, projects: Array<Project>) => void,
+  ) {
+    // Always pretend that the fetch succeeded
+    callback(null, [
+      generateRandomProject(faker.random.number(), wid),
+    ])
+  }
+
+  getProjectData(
+    wid: number,
+    options: {},
+    callback: (error: {} | null, project: Project) => void,
+  ) {
+    // Always pretend that the fetch succeeded
+    callback(
+      null,
+      generateRandomProject(faker.random.number(), wid),
+    )
   }
 }
 

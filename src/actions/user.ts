@@ -7,6 +7,7 @@ import {
   ensureCorsIsWhitelisted,
   formatTogglApiErrorMessage,
 } from '../apiClients/TogglClient'
+import { User } from '../reducers/user'
 
 /**
  * Action types
@@ -23,7 +24,7 @@ const VALIDATE_API_KEY_ERROR = 'VALIDATE_API_KEY_ERROR'
 
 export const changeApiToken = actionCreator<{apiToken: string}>(CHANGE_API_KEY)
 export const validateApiToken = actionCreator<{}>(VALIDATE_API_KEY)
-export const validateApiTokenComplete = actionCreator<{isValid: boolean}>(VALIDATE_API_KEY_COMPLETE)
+export const validateApiTokenComplete = actionCreator<{isApiTokenValid: boolean, user: User}>(VALIDATE_API_KEY_COMPLETE)
 export const validateApiTokenError = actionCreator<{error: string}>(VALIDATE_API_KEY_ERROR)
 
 /**
@@ -43,16 +44,25 @@ export function submitApiToken(apiToken: string = '') {
 
     // Verify that the API token worked by attempting to fetch the user data
     const togglClient = getTogglClient()
-    togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.UserDataResponse) => {
+    togglClient.getUserData({}, (err: TogglClient.APIError, userData: TogglClient.User) => {
       if (err) {
         // An API error was raised
         dispatch(validateApiTokenError({
           error: formatTogglApiErrorMessage(err),
         }))
       } else {
+        // Extract useful user data for use later
+        const user = {
+          id: userData.id,
+          defaultWorkspaceId: userData.default_wid,
+        } as User
+
         // The API request completed successfully, test user ID to ensure the
         // API token is valid
-        dispatch(validateApiTokenComplete({ isValid: userData.id > 0 }))
+        dispatch(validateApiTokenComplete({
+          isApiTokenValid: userData.id > 0,
+          user: user,
+        }))
       }
     })
   }
