@@ -1,5 +1,14 @@
 language: node_js
 
+# Handle git submodules manually, see: https://stackoverflow.com/questions/15674064/github-submodule-access-rights-travis-ci#24600210
+git:
+  submodules: false
+
+before_install:
+  # Use sed to replace the SSH URL with the public URL, then initialize submodules
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
+
 script:
   # Pipe javascript test coverage lcov.info results into coveralls
   # Yarn passes the --coverage argument and any others into the react-scripts-ts test script
