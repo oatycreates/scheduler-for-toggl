@@ -65,6 +65,7 @@ class ScheduleEntryListContainer extends
           scheduleName={scheduleEntry.scheduleName}
           startTime={moment(scheduleEntry.startTime)}
           endTime={moment(scheduleEntry.endTime)}
+          project={scheduleEntry.project}
         />
         <Button
           buttonStyle={ButtonStyles.primary}

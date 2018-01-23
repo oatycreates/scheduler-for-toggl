@@ -16,7 +16,7 @@ describe('ScheduleEntryPage', () => {
     })
 
     it('renders without crashing', () => {
-      expect(container.find('.ScheduleEntryPage')).toHaveLength(1)
+      expect(container.closest('.ScheduleEntryPage')).toHaveLength(1)
     })
 
     it('displays the ApiTokenField component', () => {
@@ -27,13 +27,13 @@ describe('ScheduleEntryPage', () => {
   describe('when a valid API token has been entered', () => {
     let container: ReactWrapper<ScheduleEntryPageStateProps, {}>
     beforeEach(() => {
-      // Initialse store state
+      // Initialise store state
       const store = buildReduxStore(Object.assign({}, initialSchedulerForTogglAppState, {
-        apiToken: {
+        user: {
           apiToken: faker.random.alphaNumeric(16),
-          isValid: true,
+          isApiTokenValid: true,
         },
-      }))
+      } as Partial<SchedulerForTogglAppState>))
       container = mount(<Provider store={store}><ScheduleEntryPage /></Provider>)
     })
 

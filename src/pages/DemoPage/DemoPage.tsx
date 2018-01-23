@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as _ from 'lodash'
 
 // Component styles
-import './DemoPage.css'
+import './DemoPage.scss'
 
 // Component imports
 import {Button, ButtonStyles} from '../../components/Button'

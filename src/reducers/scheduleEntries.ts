@@ -1,6 +1,6 @@
-import * as moment from 'moment'
-import { Action, isType } from '../actions/actionCreator'
-import { TimeEntry } from 'toggl-api'
+import { isType } from '../actions/actionCreator'
+import { Action as ReduxAction } from 'redux'
+import { Project } from './projects'
 
 /**
  * Action creators
@@ -23,6 +23,7 @@ export interface ScheduleEntry {
   // ISO string formatted Moment strings
   startTime: string,
   endTime: string,
+  project: Project,
   isSubmitting?: boolean,
 }
 
@@ -49,7 +50,7 @@ export const initialScheduleEntriesState = {
  */
 export function scheduleEntries(
     scheduleEntriesState: ScheduleEntriesState = initialScheduleEntriesState,
-    action: Action<{}>): ScheduleEntriesState {
+    action: ReduxAction): ScheduleEntriesState {
   if (isType(action, addScheduleEntry)) {
     // Append the new schedule entry to the end of existing entries
     return Object.assign({}, scheduleEntriesState, {
@@ -103,26 +104,11 @@ export function scheduleEntries(
  * entries are deleted off the end, IDs may be recycled. Due to the program
  * being all client side at this time and the IDs integrity not being essential
  * to maintain state, this is acceptable for now.
- * @param scheduleEntries List of schedule entries to find the maximum ID for.
+ * @param scheduleEntriesList List of schedule entries to find the maximum ID for.
  */
-function getMaxScheduleEntryId(scheduleEntries: ReadonlyArray<ScheduleEntry>) {
-  return scheduleEntries.reduce(
+function getMaxScheduleEntryId(scheduleEntriesList: ReadonlyArray<ScheduleEntry>) {
+  return scheduleEntriesList.reduce(
     (maxId, scheduleEntry) => Math.max(typeof(scheduleEntry.id) !== 'undefined' ? scheduleEntry.id : -1, maxId),
     -1,
   )
-}
-
-/**
- * Data converters
- */
-
-export function scheduleEntryToTogglTimeEntry(scheduleEntry: ScheduleEntry): TimeEntry {
-  const startTime = moment(scheduleEntry.startTime)
-  const endTime = moment(scheduleEntry.endTime)
-  return {
-    description: scheduleEntry.scheduleName,
-    start: startTime.toISOString(),
-    stop: endTime.toISOString(),
-    duration: moment.duration(endTime.diff(startTime, 'milliseconds', true), 'milliseconds').asSeconds(),
-  }
 }
