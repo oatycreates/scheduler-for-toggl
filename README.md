@@ -30,6 +30,8 @@ In the project directory, run:
 
 ### `yarn run build`
 
+Ensure the `build/` folder is correctly initialised first-time by running `git submodule init` and `git submodule update`. See: [Git Submodules docs](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+
 Builds the app for production to the `build/` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
